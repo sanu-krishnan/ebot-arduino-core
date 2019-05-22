@@ -14,7 +14,7 @@
                     "architecture": "avr",
                     "version": "0.0.1",
                     "category": "Contributed",
-                    "url": "https://gitlab.com/openmaker1/ebot-arduino-core/blob/master/EBots_0_0_1.zip",
+                    "url": "https://github.com/sanu-krishnan/ebot-arduino-core/blob/master/EBots_0_0_1.zip",
                     "archiveFileName": " EBots_0_0_1.zip ",
                     "checksum": "SHA-256:8155472b9215224c52bfa3b9c76bbd0c6758449a598c5bcbec54e5c0512373a7",
                     "size": "21711713",
