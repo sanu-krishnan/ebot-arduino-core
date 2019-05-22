@@ -14,10 +14,10 @@
                     "architecture": "avr",
                     "version": "0.0.1",
                     "category": "Contributed",
-                    "url": "https://github.com/sanu-krishnan/ebot-arduino-core/blob/master/EBots_0_0_1.zip",
-                    "archiveFileName": " EBots_0_0_1.zip ",
-                    "checksum": "SHA-256:8155472b9215224c52bfa3b9c76bbd0c6758449a598c5bcbec54e5c0512373a7",
-                    "size": "21711713",
+                    "url": "https://github.com/sanu-krishnan/ebot-arduino-core/blob/master/EBots_v_0_1.zip",
+                    "archiveFileName": " EBots_0_1.zip ",
+                    "checksum": "SHA-256:ce34edbfe56e9f9b78ccca53fc307665db6df2f8373d143494c0318df23985ed",
+                    "size": "6640037",
                     "boards": [
                         {
                             "name": "EBot8"
