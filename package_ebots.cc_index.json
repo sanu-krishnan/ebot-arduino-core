@@ -14,10 +14,10 @@
                     "architecture": "avr",
                     "version": "0.0.1",
                     "category": "Contributed",
-                    "url": "https://MCUdude.github.io/MightyCore/MightyCore-1.0.0.tar.gz",
-                    "archiveFileName": "MightyCore-1.0.0.tar.gz",
-                    "checksum": "SHA-256:ce34edbfe56e9f9b78ccca53fc307665db6df2f8373d143494c0318df23985ed",
-                    "size": "306232",
+                    "url": "https://github.com/sanu-krishnan/ebot-arduino-core/blob/master/ebots_001.zip",
+                    "archiveFileName": "ebots_001",
+                    "checksum": "SHA-256:b81ed90c959214a76157c9a51124bafe03162fce59fad0381e832e4efbabf94f",
+                    "size": "6572007",
                     "boards": [
                         {
                             "name": "EBot8"
