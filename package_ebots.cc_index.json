@@ -16,7 +16,7 @@
                     "category": "Contributed",
                     "url": "https://MCUdude.github.io/MightyCore/MightyCore-1.0.0.tar.gz",
                     "archiveFileName": "MightyCore-1.0.0.tar.gz",
-                    "checksum": "SHA-256:283b442209cef5406bc7c21074664e1b2783d9b5997f50b3195a5c6cd0ee4de5",
+                    "checksum": "SHA-256:ce34edbfe56e9f9b78ccca53fc307665db6df2f8373d143494c0318df23985ed",
                     "size": "306232",
                     "boards": [
                         {
