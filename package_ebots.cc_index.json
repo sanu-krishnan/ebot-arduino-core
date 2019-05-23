@@ -16,8 +16,8 @@
                     "category": "Contributed",
                     "url": "https://github.com/sanu-krishnan/ebot-arduino-core/blob/master/ebots_001.zip?raw=true",
                     "archiveFileName": "ebots_001.zip",
-                    "checksum": "SHA-256:375a3d5922e3608c65fe60ea4fe0ff5a29522adabcfbda3b9d37f9f9daca3f4d",
-                    "size": "6639448",
+                    "checksum": "SHA-256:bdf6e43866e09e52df461fae271fbb0e60cf4bc4869641d3cace95ee300ca8c5",
+                    "size": "6542973",
                     "boards": [
                         {
                             "name": "EBot8"
