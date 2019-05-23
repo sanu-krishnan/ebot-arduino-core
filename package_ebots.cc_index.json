@@ -1,36 +1,35 @@
 {
-  "packages": [
-    {
-      "name": "EBots",
+    "packages": [
+        {
+            "name": "EBots",
             "maintainer": "EBots.cc",
             "websiteURL": "http://www.ebots.cc/",
             "email": "info@ebots.cc",
             "help": {
                 "online": "http://www.ebots.cc/"
             },
-      "platforms": [
-        {
-          "name": "MightyCore",
-          "architecture": "avr",
-          "version": "1.0.0",
-          "category": "Contributed",
-          "url": "https://MCUdude.github.io/MightyCore/MightyCore-1.0.0.tar.gz",
-          "archiveFileName": "MightyCore-1.0.0.tar.gz",
-          "checksum": "SHA-256:283b442209cef5406bc7c21074664e1b2783d9b5997f50b3195a5c6cd0ee4de5",
-          "size": "306232",
-          "boards": [
-            {"name": "ATmega1284p"},
-            {"name": "ATmega644p"},
-            {"name": "ATmega324p"},
-            {"name": "ATmega164p"},
-            {"name": "ATmega32"},
-            {"name": "ATmega16"},
-            {"name": "ATmega8535"}
-          ],
-          "toolsDependencies": []
-        },
-      ],
-      "tools": []
-    }
-  ]
+            "platforms": [
+                {
+                    "name": "EBots",
+                    "architecture": "avr",
+                    "version": "0.0.1",
+                    "category": "Contributed",
+                    "url": "https://github.com/sanu-krishnan/ebot-arduino-core/blob/master/ebots_001.zip",
+                    "archiveFileName": "ebots_001.zip ",
+                    "checksum": "SHA-256:ce34edbfe56e9f9b78ccca53fc307665db6df2f8373d143494c0318df23985ed",
+                    "size": "6640037",
+                    "boards": [
+                        {
+                            "name": "EBot8"
+                        },
+                        {
+                            "name": "EBot8 PRO"
+                        }
+                    ],
+                    "toolsDependencies": []
+                }
+            ],
+            "tools": []
+        }
+    ]
 }
