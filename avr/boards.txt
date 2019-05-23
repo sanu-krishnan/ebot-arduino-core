@@ -106,10 +106,10 @@ menu.bootloader=Bootloader
 #1284.menu.LTO.Os.compiler.cpp.extra_flags=
 #1284.menu.LTO.Os.ltoarcmd=avr-ar
 
-1284.menu.LTO.Os.compiler.c.extra_flags=
-1284.menu.LTO.Os.compiler.c.elf.extra_flags=
-1284.menu.LTO.Os.compiler.cpp.extra_flags=
-1284.menu.LTO.Os.ltoarcmd=avr-ar
+1284.compiler.c.extra_flags=
+1284.compiler.c.elf.extra_flags=
+1284.compiler.cpp.extra_flags=
+1284.ltoarcmd=avr-ar
 
 # Clock frequencies
 #1284.menu.clock.16MHz_external=16 MHz external
