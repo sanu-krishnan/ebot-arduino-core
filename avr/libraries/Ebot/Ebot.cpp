@@ -151,7 +151,7 @@ void connectBluetoothTo(String strName, uint8_t type)
             if (BtMac.substring(0, 1) == ":" && BtMac.substring(13, 15) == "OK")
             {                                   //Verifying
                 BtMac = BtMac.substring(1, 13); //Clearifying
-                //Serial.println("Found With MAC Addr. = "+BtMac);		//Debug
+                //Serial.println("Found With MAC Addr. = "+BtMac);   //Debug
                 Serial1.print("AT+IMME0");
                 delay(100);
                 Serial1.print("AT+CON" + BtMac);
@@ -169,7 +169,7 @@ void connectBluetoothTo(String strName, uint8_t type)
             if (BtMac.substring(0, 1) == ":" && BtMac.substring(13, 15) == "OK")
             {                                   //Verifying
                 BtMac = BtMac.substring(1, 13); //Clearifying
-                //Serial.println("Found With MAC Addr. = "+BtMac);		//Debug
+                //Serial.println("Found With MAC Addr. = "+BtMac);  //Debug
                 Serial.print("AT+IMME0");
                 delay(100);
                 Serial.print("AT+CON" + BtMac);
@@ -184,28 +184,28 @@ void connectBluetoothTo(String strName, uint8_t type)
 
         /* Another method: (searching for all blu. devices and selecting which one)
     
-                    int pos1 = received.indexOf("NAME:");	//Take the pos. of the first name in the string
-                    int pos2 = received.indexOf("DIS0:");	//Take the pos. of the first MAC in the string
+                    int pos1 = received.indexOf("NAME:"); //Take the pos. of the first name in the string
+                    int pos2 = received.indexOf("DIS0:"); //Take the pos. of the first MAC in the string
                     int pos3 = -1;
                     int pos4 = -1;
             
-                    BtName = received.substring(pos1+5, pos1+strName.length()+5);	//Save the Name based on position
-                    Serial.println("HEREEEEEEEEEEE is the NAME = "+BtName);		//Debug
+                    BtName = received.substring(pos1+5, pos1+strName.length()+5); //Save the Name based on position
+                    Serial.println("HEREEEEEEEEEEE is the NAME = "+BtName); //Debug
                     if (BtName == strName){		//Check If it's the same as the geven name
-                            BtMac = received.substring(pos2+5, pos2+17);		//Save the MAC based on position
-                            Serial.println("Found from the first time = "+BtName);	//Debug
-                            Serial.println("With MAC Addr. "+BtMac);	//Debug
-                    } else {	//If it's not the first detected one search for it
-                            for (int c = 1 ; c < 6 ; c++){	//Max 6 dev.
-                                    pos3 = received.indexOf("NAME:", pos1 + c );		//Take the next Name pos. found in the string
-                                    pos4 = received.indexOf("DIS0:", pos1 + c );		//Take the next Mac pos. found in the string
+                            BtMac = received.substring(pos2+5, pos2+17); //Save the MAC based on position
+                            Serial.println("Found from the first time = "+BtName); //Debug
+                            Serial.println("With MAC Addr. "+BtMac); //Debug
+                    } else { //If it's not the first detected one search for it
+                            for (int c = 1 ; c < 6 ; c++){ //Max 6 dev.
+                                    pos3 = received.indexOf("NAME:", pos1 + c ); //Take the next Name pos. found in the string
+                                    pos4 = received.indexOf("DIS0:", pos1 + c ); //Take the next Mac pos. found in the string
                     
-                                    BtName = received.substring(pos3+5, pos3+strName.length()+5);		//Save them
+                                    BtName = received.substring(pos3+5, pos3+strName.length()+5); //Save them
                                     BtMac = received.substring(pos4+5, pos4+17);
                                     Serial.println("Found Name = "+BtName);
                                     Serial.println("Found Mac = "+BtMac);
-                                    if (BtName == strName) break;		//Compare if found break
-                                    else {		//If not then assign the already known pos. to the first two to search for the next one
+                                    if (BtName == strName) break; //Compare if found break
+                                    else { //If not then assign the already known pos. to the first two to search for the next one
                                             pos1 = pos3;
                                             pos2 = pos4;
                                     }
@@ -239,9 +239,9 @@ void mpu6050_init()
     devStatus = mpu.dmpInitialize();
 
     // supply your own gyro offsets here, scaled for min sensitivity
-    //	mpu.setXGyroOffset(220);
-    //	mpu.setYGyroOffset(76);
-    //	mpu.setZGyroOffset(-85);
+    // mpu.setXGyroOffset(220);
+    // mpu.setYGyroOffset(76);
+    // mpu.setZGyroOffset(-85);
 
     mpu.setXGyroOffset(0);
     mpu.setYGyroOffset(0);
@@ -318,25 +318,25 @@ float readFromMPU(int choice, int offset)
 
             switch (choice)
             {
-                /*case quaternionX:		MPUdata= ax;			break;
-                    case quaternionY:		MPUdata= ay;			break;
-                    case quaternionZ:		MPUdata= az;			break;
-                    case quaternionW:		MPUdata= q.w;			break;
-                    case euler0:			MPUdata= euler[0]* 180/M_PI;	break;
-                    case euler1:			MPUdata= euler[1]* 180/M_PI;	break;
-                    case euler2:			MPUdata= euler[2]* 180/M_PI;	break;
+                /*case quaternionX:    MPUdata= ax;    break;
+                    case quaternionY:    MPUdata= ay;    break;
+                    case quaternionZ:    MPUdata= az;    break;
+                    case quaternionW:    MPUdata= q.w;    break;
+                    case euler0: MPUdata= euler[0]* 180/M_PI; break;
+                    case euler1:    MPUdata= euler[1]* 180/M_PI; break;
+                    case euler2:    MPUdata= euler[2]* 180/M_PI; break;
 
-                    case yaw:					MPUdata= ypr[0] * 180/M_PI;		break;
-                    case pitch:				MPUdata= ypr[1] * 180/M_PI;		break;
-                    case roll:				MPUdata= ypr[2] * 180/M_PI;		break;
+                    case yaw:    MPUdata= ypr[0] * 180/M_PI;   break;
+                    case pitch:   MPUdata= ypr[1] * 180/M_PI;   break;
+                    case roll:   MPUdata= ypr[2] * 180/M_PI;   break;
 
-                    case realAccelerationX:			MPUdata= aaReal.x;		break;
-                    case realAccelerationY:			MPUdata= aaReal.y;		break;
-                    case realAccelerationZ:			MPUdata= aaReal.z;		break;
+                    case realAccelerationX:   MPUdata= aaReal.x;   break;
+                    case realAccelerationY:   MPUdata= aaReal.y;   break;
+                    case realAccelerationZ:   MPUdata= aaReal.z;   break;
 
-                    case accelerationX:			MPUdata= aaWorld.x;		break;
-                    case accelerationY:			MPUdata= aaWorld.y;		break;
-                    case accelerationZ:			MPUdata= aaWorld.z;		break;
+                    case accelerationX:   MPUdata= aaWorld.x;   break;
+                    case accelerationY:   MPUdata= aaWorld.y;   break;
+                    case accelerationZ:   MPUdata= aaWorld.z;   break;
                      */
             case realAccelerationX:
                 MPUdata = aaReal.x;
@@ -358,9 +358,9 @@ float readFromMPU(int choice, int offset)
                 MPUdata = aaWorld.z;
                 break;
 
-                //case angleZ:			MPUdata= relativeAngleZ(ypr[0] * 180/M_PI);		break;//MPUdata= euler[0]* 180/M_PI;	break; //euler0
-                //case angleX:			MPUdata= relativeAngleX(ypr[2]  * 180/M_PI);	break; //euler1 data is not reliable
-                //case angleY:			MPUdata= relativeAngleY(ypr[1] * 180/M_PI);		break;//MPUdata= euler[2]* 180/M_PI;	break; //euler2
+                //case angleZ:   MPUdata= relativeAngleZ(ypr[0] * 180/M_PI); break;//MPUdata= euler[0]* 180/M_PI;	break; //euler0
+                //case angleX:   MPUdata= relativeAngleX(ypr[2]  * 180/M_PI); break; //euler1 data is not reliable
+                //case angleY:   MPUdata= relativeAngleY(ypr[1] * 180/M_PI); break;//MPUdata= euler[2]* 180/M_PI;	break; //euler2
 
             case angleZ:
                 MPUdata = relativeAngle(ypr[0] * 180 / M_PI, offset);
@@ -374,7 +374,7 @@ float readFromMPU(int choice, int offset)
                 else if (val < 0)
                     MPUdata = -180 - val;
                 MPUdata = relativeAngle(MPUdata, offset);
-                break; //MPUdata= euler[2]* 180/M_PI;	break; //euler2
+                break; //MPUdata= euler[2]* 180/M_PI; break; //euler2
 
             case angleX:
                 val = (ypr[2] * 180 / M_PI);
@@ -388,9 +388,6 @@ float readFromMPU(int choice, int offset)
                 MPUdata = relativeAngle(MPUdata, offset);
                 break;
 
-                //case euZ:			MPUdata= MPUdata= euler[0]* 180/M_PI;		break;//MPUdata= euler[0]* 180/M_PI;	break; //euler0
-                //case euX:			MPUdata= MPUdata= euler[1]* 180/M_PI;	break; //euler1 data is not reliable
-                //case euY:			MPUdata= MPUdata= euler[2]* 180/M_PI;	break; //euler2
             default:
                 MPUdata = 0;
                 break;
@@ -407,12 +404,13 @@ float readFromMPU(int choice, int offset)
 /*Adafruit_NeoPixel startup_strip = Adafruit_NeoPixel(4, 11, NEO_GRB + NEO_KHZ800);
 uint8_t index = 0;
 uint8_t rgb_startup_color[] =
-{	0,	0,	255,		0,	255,255,		255,	0,	0,		255, 255, 255,
-0,	0,	255,		0,	0,	255,		0,	0,	255,		255, 255, 255,
-0,	255,255,		0,	255,255,		255,	0,	0,		255, 255, 255,
-0,	0,	255,		0,	0,	255,		0,		0,	255,	0, 		0, 255,
-0,	0,	0,			0,	0,	0,			0,		0,	0,		0, 		0, 0,
-};
+
+
+
+
+
+
+
 
 void startup_colorWipe(uint32_t c, uint8_t wait) {
 for(uint16_t i=0; i<startup_strip.numPixels(); i++) {
@@ -481,11 +479,11 @@ void ebot_setup()
     }
     //	Serial1.begin(9600);
     //	Serial1.print("AT");  delay(100);
-    //	Serial1.print("AT+RENEW");  delay(1000);
+    // Serial1.print("AT+RENEW");  delay(1000);
     // Serial1.print("AT+TYPE3");  delay(200);
     // Serial1.print("AT+MODE2");  delay(200);
-    //  Serial1.print("AT+NAMEEBot8Pro");  delay(200);
-    //  Serial1.print("AT+RESET");  delay(1000);
+    // Serial1.print("AT+NAMEEBot8Pro");  delay(200);
+    // Serial1.print("AT+RESET");  delay(1000);
 #endif
     /*#ifdef EBOT_4
     edg[6].cu =	edg[6].pre = LOW ;
@@ -496,13 +494,13 @@ void ebot_setup()
     #endif
      */
     //#ifdef EBOT_4
-    //	Serial.begin(9600);
-    //	startup_strip.begin();
-    //	startup_strip.show();
+    // Serial.begin(9600);
+    // startup_strip.begin();
+    // startup_strip.show();
     //for (uint8_t ii = 0; ii < 5; ii++) {
     //startup_colorWipe(startup_strip.Color(rgb_startup_color[index++], rgb_startup_color[index++], rgb_startup_color[index++]),50); // Red
     //	delay(100);
-    //	}
+    // }
     //#endif
     ////////////////////////////////////////
 }
@@ -534,10 +532,10 @@ void rtc_init()
     //while (!rtc.isset());//wait till clock starts ticking
     while (!rtc.begin())
     {                                                                        // Initialize RTC communications    //
-        Serial.println(F("Unable to find MCP7940M. Checking again in 3s.")); // Show error text                  //
-        delay(3000);                                                         // wait a second                    //
-    }                                                                        // of loop until device is located                                        //                                  //
-    //Serial.println(F("MCP7940 initialized."));                                  //                                  //
+        Serial.println(F("Unable to find MCP7940M. Checking again in 3s.")); // Show error text
+        delay(3000);                                                         // wait a second
+    }                                                                        // of loop until device is located
+    //Serial.println(F("MCP7940 initialized."));
     while (!rtc.deviceStatus())
     {                                                           // Turn oscillator on if necessary  //
         Serial.println(F("Oscillator is off, turning it on.")); //                                  //
