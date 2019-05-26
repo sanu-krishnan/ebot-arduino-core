@@ -17,7 +17,6 @@
 #define ME 15
 #endif
 
-
 #ifdef EBOT_4
 
 //left
@@ -52,60 +51,54 @@
 
 #endif
 
-
 class Motors
 {
-  public:
+public:
+  // constructor (doesn't do anything)
+  Motors();
 
-    // constructor (doesn't do anything)
-	Motors();
+  // sets the motor speed.  The sign of 'speed' determines the direction
+  // and the magnitude determines the speed.  limits: -255 <= speed < 255
+  // |speed| = 255 produces the maximum speed while speed = 0 is full brake.
+#if defined(EBOT_8) || defined(EBOT_4)
 
-	// sets the motor speed.  The sign of 'speed' determines the direction
-	// and the magnitude determines the speed.  limits: -255 <= speed < 255
-	// |speed| = 255 produces the maximum speed while speed = 0 is full brake.
-
-	#if defined(EBOT_8) || defined(EBOT_4)
-
-	static void setMLSpeed(int speed);
-	static void setMRSpeed(int speed);
+  static void setMLSpeed(int speed);
+  static void setMRSpeed(int speed);
 
   static void setLeftMotorSpeed(int speed);
   static void setRightMotorSpeed(int speed);
-  static void  initMotors();
-	//static void setMSpeed(int speed1,int speed2);
+  static void initMotors();
+  //static void setMSpeed(int speed1,int speed2);
 
-	#endif
-	#ifdef EBOT_X
-	static void setML1Speed(int speed);
-	static void setML2Speed(int speed);
-	static void setMLSpeed(int speed1,int speed2);
+#endif
+#ifdef EBOT_X
+  static void setML1Speed(int speed);
+  static void setML2Speed(int speed);
+  static void setMLSpeed(int speed1, int speed2);
+  static void setMR1Speed(int speed);
+  static void setMR2Speed(int speed);
+  static void setMRSpeed(int speed1, int speed2);
+#endif
 
-	static void setMR1Speed(int speed);
-	static void setMR2Speed(int speed);
-	static void setMRSpeed(int speed1,int speed2);
-	#endif
+  static void disable();
+  //static void setMLSpeeds(int mL1Speed, int mL2Speed);
+  //static void setMRSpeeds(int mR1Speed, int mR2Speed);
 
-	static void disable();
-	//static void setMLSpeeds(int mL1Speed, int mL2Speed);
-	//static void setMRSpeeds(int mR1Speed, int mR2Speed);
+private:
+  static inline void init()
+  {
+    static unsigned char initialized = 0;
 
-  private:
+    if (!initialized)
+    {
+      initialized = 1;
+      init2();
+    }
+  }
 
-	static inline void init()
-	{
-		static unsigned char initialized = 0;
-
-		if (!initialized)
-		{
-			initialized = 1;
-			init2();
-		}
-	}
-
-	// initializes timers 0 and 2 for proper PWM generation
-	static void init2();
+  // initializes timers 0 and 2 for proper PWM generation
+  static void init2();
 };
-
 
 #endif
 

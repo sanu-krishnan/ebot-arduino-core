@@ -1,13 +1,13 @@
 /******************************************************************
-*  EasyTransfer Arduino Library 
-*		details and example sketch: 
-*			http://www.billporter.info/easytransfer-arduino-library/
+* EasyTransfer Arduino Library 
+* details and example sketch: 
+* http://www.billporter.info/easytransfer-arduino-library/
 *
-*		Brought to you by:
-*              Bill Porter
-*              www.billporter.info
+* Brought to you by:
+* Bill Porter
+* www.billporter.info
 *
-*		See Readme for other info and version history
+* See Readme for other info and version history
 *	
 *  
 *This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or(at your option) any later version.
@@ -24,11 +24,10 @@ GNU General Public License for more details.
 #ifndef EasyTransfer_h
 #define EasyTransfer_h
 
+//make it a little prettier on the front end.
+#define details(name) (byte *)&name, sizeof(name)
 
-//make it a little prettier on the front end. 
-#define details(name) (byte*)&name,sizeof(name)
-
-//Not neccessary, but just in case. 
+//Not neccessary, but just in case.
 
 #include "Arduino.h" // deleted WProgram.h and left arduino.h by default
 
@@ -39,23 +38,23 @@ GNU General Public License for more details.
 #include <stdint.h>
 #include <avr/io.h>
 
-class EasyTransfer {
+class EasyTransfer
+{
 public:
-void begin(uint8_t *, uint8_t, HardwareSerial *theSerial);
-//void begin(uint8_t *, uint8_t, NewSoftSerial *theSerial);
-void sendData();
-boolean receiveData();
+    void begin(uint8_t *, uint8_t, HardwareSerial *theSerial);
+    //void begin(uint8_t *, uint8_t, NewSoftSerial *theSerial);
+    void sendData();
+    boolean receiveData();
+
 private:
-HardwareSerial *_serial;
-//NewSoftSerial *_serial;
-uint8_t * address;  //address of struct
-uint8_t size;       //size of struct
-uint8_t * rx_buffer; //address for temporary storage and parsing buffer
-uint8_t rx_array_inx;  //index for RX parsing buffer
-uint8_t rx_len;		//RX packet length according to the packet
-uint8_t calc_CS;	   //calculated Chacksum
+    HardwareSerial *_serial;
+    //NewSoftSerial *_serial;
+    uint8_t *address;     //address of struct
+    uint8_t size;         //size of struct
+    uint8_t *rx_buffer;   //address for temporary storage and parsing buffer
+    uint8_t rx_array_inx; //index for RX parsing buffer
+    uint8_t rx_len;       //RX packet length according to the packet
+    uint8_t calc_CS;      //calculated Chacksum
 };
-
-
 
 #endif

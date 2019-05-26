@@ -31,7 +31,7 @@
 #define RGB_LED 11
 #define BUZZER_BUILTIN 10
 
-//#define BLE_RST 		8
+//#define BLE_RST 8
 #define BLE_KEY 15
 
 #define ebot4_led_pin 13
@@ -78,13 +78,13 @@
 #define MPUyOffset 0 // this value should be modified by the software
 #define MPUzOffset 0 // this value should be modified by the software
 
-//#define relativeAngleX(input)	((input-MPUxOffset)>90)?90:(((input-MPUxOffset)<-90)?-90:(input-MPUxOffset))
-//#define relativeAngleY(input)	((input-MPUyOffset)>90)?90:(((input-MPUyOffset)<-90)?-90:(input-MPUyOffset))
-//#define relativeAngleZ(input)	((input-MPUzOffset)>180)?360-(input-MPUzOffset):(((input-MPUzOffset)<-180)?(input-MPUzOffset)+360:(input-MPUzOffset))
+//#define relativeAngleX(input)  ((input-MPUxOffset)>90)?90:(((input-MPUxOffset)<-90)?-90:(input-MPUxOffset))
+//#define relativeAngleY(input)  ((input-MPUyOffset)>90)?90:(((input-MPUyOffset)<-90)?-90:(input-MPUyOffset))
+//#define relativeAngleZ(input)  ((input-MPUzOffset)>180)?360-(input-MPUzOffset):(((input-MPUzOffset)<-180)?(input-MPUzOffset)+360:(input-MPUzOffset))
 
-//#define relativeAngleX2(input,off)	((input-off)>90)?90:(((input-off)<-90)?-90:(input-off))
-//#define relativeAngleY2(input,off)	((input-off)>90)?90:(((input-off)<-90)?-90:(input-off))
-//#define relativeAngleZ2(input,off)	((input-off)>180)?360-(input-off):(((input-off)<-180)?(input-off)+360:(input-off))
+//#define relativeAngleX2(input,off)  ((input-off)>90)?90:(((input-off)<-90)?-90:(input-off))
+//#define relativeAngleY2(input,off)  ((input-off)>90)?90:(((input-off)<-90)?-90:(input-off))
+//#define relativeAngleZ2(input,off)  ((input-off)>180)?360-(input-off):(((input-off)<-180)?(input-off)+360:(input-off))
 
 //#define relativeAngle(input,offset) ((input-offset)>180)?360-(input-offset):(((input-offset)<-180)?(input-offset)+360:(input-offset))
 #define relativeAngle(input, offset) (((input - offset) < -180) ? (input - offset + 360) : (((input - offset) > 180) ? (input - offset - 360) : (input - offset)))
@@ -131,7 +131,7 @@ uint8_t getDayOfWeek();
 //bool ir_rc(IR *ir, unsigned char key);
 //#endif
 
-//#ifdef	EBOT_8
+//#ifdef EBOT_8
 void ebotSing(int index);
 void ebotSingInit(uint8_t index);
 //void noTone(uint8_t _pin);
