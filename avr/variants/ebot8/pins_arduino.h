@@ -131,8 +131,8 @@ const uint8_t PROGMEM digital_pin_to_port_PGM[] =
         PB, // 5 | d3 MOSI
         PB, // 6 | d4 MISO
         PB, // 7 | d5 SCK
-            // PD , // 6 | d6
-            // PD , // 7 | d7
+        // PD , // 6 | d6
+        // PD , // 7 | d7
         PC, // 0 | d0
         PC, // 1 | d1
 
