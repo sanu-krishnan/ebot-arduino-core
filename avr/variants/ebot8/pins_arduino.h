@@ -138,12 +138,12 @@ const uint8_t PROGMEM digital_pin_to_port_PGM[] =
 
         PC, // 2 | LED
 
-        PB, // 0 | M1	9
-        PB, // 1 | M2	10
-        PB, // 2 | M3	11
-        PC, // 7 | M4	12
+        PB, // 0 | M1 9
+        PB, // 1 | M2 10
+        PB, // 2 | M3 11
+        PC, // 7 | M4 12
         PD, // 4 | PWM1  13
-        PD, // 5 | PWM2	14
+        PD, // 5 | PWM2 14
         PC, // 3 | STDBY 15
 
         PC, // IR0
