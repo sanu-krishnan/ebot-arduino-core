@@ -16,7 +16,6 @@ Coded for   :   CBits
 // #include "I2Cdev.h"
 // #include "libraries/MPU6050/MPU6050_6Axis_MotionApps20.h"
 
-
 int outputPinMap(int pinNum)
 {
     //return ebot_pro_p[pinNum];
@@ -76,7 +75,8 @@ char sSerialReadChar(uint8_t pin, int baud)
 /*******************    Command Decode Function    *******************/
 int cmdDecode()
 {
-    while (SerialPort.available() <= 0);
+    while (SerialPort.available() <= 0)
+        ;
     byte size = SerialPort.readBytesUntil('\n', input, INPUT_SIZE);
     input[size] = 0;
     char *command = strtok(input, " ");

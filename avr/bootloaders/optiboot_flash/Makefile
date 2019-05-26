@@ -1023,52 +1023,52 @@ endif
 FORCE:
 
 baudcheck: FORCE
-	- @echo -n Using avr-gcc\ 
-	- @$(CC) -dumpversion
-	- @echo "\nUART = UART$(UART)\tLED_PIN = $(LED)\t LED_FLASHES = $(LED_START_FLASHES)"
-	- @echo "\x1B[1m\x1B[4m"
-	- @$(CC) $(CFLAGS) -E baudcheck.c -o baudcheck.tmp.sh
-	- @$(SH) baudcheck.tmp.sh
-	- @echo "\x1B[0m"
+    - @echo -n Using avr-gcc\ 
+    - @$(CC) -dumpversion
+    - @echo "\nUART = UART$(UART)\tLED_PIN = $(LED)\t LED_FLASHES = $(LED_START_FLASHES)"
+    - @echo "\x1B[1m\x1B[4m"
+    - @$(CC) $(CFLAGS) -E baudcheck.c -o baudcheck.tmp.sh
+    - @$(SH) baudcheck.tmp.sh
+    - @echo "\x1B[0m"
 
 %.elf: $(OBJ) baudcheck $(dummy) 
-	- $(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
-	- @echo
-	- $(SIZE) $@
-	
+    - $(CC) $(CFLAGS) $(LDFLAGS) -o $@ $< $(LIBS)
+    - @echo
+    - $(SIZE) $@
+    
 maketargetdir:
-	mkdir -p bootloaders/$(TARGET)/$(AVR_FREQ)
+    mkdir -p bootloaders/$(TARGET)/$(AVR_FREQ)
 
 clean_all:	
-	find . -name "*.o" -exec rm {} \;
-	find . -name "*.elf" -exec rm {} \;
-	find . -name "*.map" -exec rm {} \;
-	find . -name "*.sym" -exec rm {} \;
-	find . -name "*.lss" -exec rm {} \;
-	find . -name "*.eep" -exec rm {} \;
-	find . -name "*.srec" -exec rm {} \;
-	find . -name "*.bin" -exec rm {} \;
-	find . -name "*.tmp.sh" -exec rm {} \;
-	find . -name "*.hex" -exec rm {} \;
-	find . -name "*.lst" -exec rm {} \;
+    find . -name "*.o" -exec rm {} \;
+    find . -name "*.elf" -exec rm {} \;
+    find . -name "*.map" -exec rm {} \;
+    find . -name "*.sym" -exec rm {} \;
+    find . -name "*.lss" -exec rm {} \;
+    find . -name "*.eep" -exec rm {} \;
+    find . -name "*.srec" -exec rm {} \;
+    find . -name "*.bin" -exec rm {} \;
+    find . -name "*.tmp.sh" -exec rm {} \;
+    find . -name "*.hex" -exec rm {} \;
+    find . -name "*.lst" -exec rm {} \;
 
 clean_lst: 
-	find . -name "*.lst" -exec rm {} \;
-	rm -rf baudcheck.tmp.sh
+    find . -name "*.lst" -exec rm {} \;
+    rm -rf baudcheck.tmp.sh
 
 gcc_version:
-	- @echo -n avr-gcc\ 
-	- @$(CC) -dumpversion
+    - @echo -n avr-gcc\ 
+    - @$(CC) -dumpversion
 
 %.lst: %.elf
-	$(OBJDUMP) -h -S $< > $@
+    $(OBJDUMP) -h -S $< > $@
 
 %.hex: %.elf
-	$(OBJCOPY) -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex $< $@
-	@echo "\nOutput file name: $@"
+    $(OBJCOPY) -j .text -j .data -j .version --set-section-flags .version=alloc,load -O ihex $< $@
+    @echo "\nOutput file name: $@"
 
 %.srec: %.elf
-	$(OBJCOPY) -j .text -j .data -j .version --set-section-flags .version=alloc,load -O srec $< $@
+    $(OBJCOPY) -j .text -j .data -j .version --set-section-flags .version=alloc,load -O srec $< $@
 
 %.bin: %.elf
-	$(OBJCOPY) -j .text -j .data -j .version --set-section-flags .version=alloc,load -O binary $< $@
+    $(OBJCOPY) -j .text -j .data -j .version --set-section-flags .version=alloc,load -O binary $< $@
