@@ -7,7 +7,7 @@
 MCP7940_Class rtc; //rtc
 #endif
 
-//#ifdef	EBOT_8
+//#ifdef  EBOT_8
 EbotSound eboSound;
 //#endif
 
@@ -69,7 +69,7 @@ void setBluetoothName(String strName, uint8_t type)
         Serial.print("AT+RESET");
         delay(500);
     }
-    //    Serial.println("Name Changed to" + strName);
+    //Serial.println("Name Changed to" + strName);
 }
 
 void disconnectBluetooth(uint8_t type)
