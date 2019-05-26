@@ -191,7 +191,7 @@ void connectBluetoothTo(String strName, uint8_t type)
             
                     BtName = received.substring(pos1+5, pos1+strName.length()+5); //Save the Name based on position
                     Serial.println("HEREEEEEEEEEEE is the NAME = "+BtName); //Debug
-                    if (BtName == strName){		//Check If it's the same as the geven name
+                    if (BtName == strName){ //Check If it's the same as the geven name
                             BtMac = received.substring(pos2+5, pos2+17); //Save the MAC based on position
                             Serial.println("Found from the first time = "+BtName); //Debug
                             Serial.println("With MAC Addr. "+BtMac); //Debug
@@ -358,13 +358,13 @@ float readFromMPU(int choice, int offset)
                 MPUdata = aaWorld.z;
                 break;
 
-                //case angleZ:   MPUdata= relativeAngleZ(ypr[0] * 180/M_PI); break;//MPUdata= euler[0]* 180/M_PI;	break; //euler0
+                //case angleZ:   MPUdata= relativeAngleZ(ypr[0] * 180/M_PI); break;//MPUdata= euler[0]* 180/M_PI; break; //euler0
                 //case angleX:   MPUdata= relativeAngleX(ypr[2]  * 180/M_PI); break; //euler1 data is not reliable
-                //case angleY:   MPUdata= relativeAngleY(ypr[1] * 180/M_PI); break;//MPUdata= euler[2]* 180/M_PI;	break; //euler2
+                //case angleY:   MPUdata= relativeAngleY(ypr[1] * 180/M_PI); break;//MPUdata= euler[2]* 180/M_PI; break; //euler2
 
             case angleZ:
                 MPUdata = relativeAngle(ypr[0] * 180 / M_PI, offset);
-                break;   //MPUdata= euler[0]* 180/M_PI;	break; //euler0
+                break;   //MPUdata= euler[0]* 180/M_PI; break; //euler0
             case angleY: // MPUdata = ypr[1]* 180 / M_PI;//relativeAngle(euler[1]* 180 / M_PI, offset);
                 val = (ypr[1] * 180 / M_PI);
                 if (az < 0)
@@ -477,8 +477,8 @@ void ebot_setup()
             bridge_loop();
         }
     }
-    //	Serial1.begin(9600);
-    //	Serial1.print("AT");  delay(100);
+    // Serial1.begin(9600);
+    // Serial1.print("AT");  delay(100);
     // Serial1.print("AT+RENEW");  delay(1000);
     // Serial1.print("AT+TYPE3");  delay(200);
     // Serial1.print("AT+MODE2");  delay(200);
@@ -486,9 +486,9 @@ void ebot_setup()
     // Serial1.print("AT+RESET");  delay(1000);
 #endif
     /*#ifdef EBOT_4
-    edg[6].cu =	edg[6].pre = LOW ;
+    edg[6].cu = edg[6].pre = LOW ;
     edg[6].acted = false;
-    edg[7].cu =	edg[7].pre = LOW ;
+    edg[7].cu = edg[7].pre = LOW ;
     edg[7].acted = false;
 
     #endif
@@ -499,7 +499,7 @@ void ebot_setup()
     // startup_strip.show();
     //for (uint8_t ii = 0; ii < 5; ii++) {
     //startup_colorWipe(startup_strip.Color(rgb_startup_color[index++], rgb_startup_color[index++], rgb_startup_color[index++]),50); // Red
-    //	delay(100);
+    // delay(100);
     // }
     //#endif
     ////////////////////////////////////////
@@ -631,17 +631,17 @@ bool ir_rc(IR *ir, unsigned char key)
 
 //bool ir_rc(IR *ir, unsigned char key)
 //{
-// 	if(ir->decode(&results))
-//	{
-//		remote_cu_key = results.value; // no channels for ebot 4
-//		ir->resume();
-//	}
-//	if(remote_cu_key == key)
-//	{
-//		remote_cu_key = KEY_IDLE;
-//		return true;
-//	}
-//	return false;
+//  if(ir->decode(&results))
+//  {
+//    remote_cu_key = results.value; // no channels for ebot 4
+//    ir->resume();
+// }
+// if(remote_cu_key == key)
+// {
+//    remote_cu_key = KEY_IDLE;
+//    return true;
+// }
+// return false;
 //}
 //#endif
 
@@ -789,7 +789,7 @@ unsigned char button(unsigned char PinNumber, unsigned char State)
     }
 
 #endif
-    /*	switch(PinNumber)
+    /*switch(PinNumber)
             {
                     case A0:
                     pin = 0;
@@ -817,7 +817,7 @@ unsigned char button(unsigned char PinNumber, unsigned char State)
                     break;
                     #ifdef EBOT_4
                     //if((PinNumber==SW_1)||(PinNumber==SW_2)){
-                    //	return (digitalRead(PinNumber));
+                    // return (digitalRead(PinNumber));
                     //}
                     case SW_1:
                     pin = 6;
@@ -989,7 +989,7 @@ void RMotor_2(int speed)
 }
 #endif
 
-//////////////////////////			RGB LED STRIP					////////////////////////
+//////////////////////////    RGB LED STRIP    ////////////////////////
 
 uint32_t Wheel(Adafruit_NeoPixel *strip, byte WheelPos)
 {
@@ -1048,7 +1048,7 @@ void colorGradient(Adafruit_NeoPixel *strip, uint8_t r1, uint8_t g1, uint8_t b1,
 ///////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////Sound//////////////////////////////////////////
-//#ifdef	EBOT_8
+//#ifdef EBOT_8
 
 void ebotSing(int index)
 {
