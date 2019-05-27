@@ -71,10 +71,9 @@ before_install:
   # Test manual package install from compressed file download
   - install_package "https://github.com/SpenceKonde/ATTinyCore/archive/master.zip"
   # Test manual package install from Git repository clone
-  #- install_package "https://github.com/MCUdude/MightyCore.git"
+  - install_package "https://github.com/MCUdude/MightyCore.git"
   # Test manual package install from Git repository clone
-  #- install_package "https://github.com/JChristensen/mighty-1284p.git" "v1.6.3"
-  - install_package "https://github.com/sanu-krishnan/ebot-arduino-core.git"
+  - install_package "https://github.com/JChristensen/mighty-1284p.git" "v1.6.3"
 
   # Test library installation from repository (can't do this because there is no library in this repository)
   # - install_library
