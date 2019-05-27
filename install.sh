@@ -73,7 +73,7 @@ echo -e """$GREEN""\xe2\x9c\x93"
 fi
 
 # link test library folder to the arduino libraries folder
-ln -s $TRAVIS_BUILD_DIR $HOME/arduino_ide/libraries/Adafruit_Test_Library
+ln -s $TRAVIS_BUILD_DIR $HOME/arduino_ide/hardware/arduino/avr/libraries/SoftwareSerial/examples/SoftwareSerialExample
 
 # add the arduino CLI to our PATH
 export PATH="$HOME/arduino_ide:$PATH"
