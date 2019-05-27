@@ -312,7 +312,7 @@ before_install:
   - install_ide "$IDE_VERSIONS"
 
   # Install MightyCore from the repository
-  - install_package
+  - install_package "MightyCore:avr" "https://mcudude.github.io/MightyCore/package_MCUdude_MightyCore_index.json"
   # Install beta version of Arduino AVR Boards, required for ATmega324PB
   - install_package "arduino:avr" "https://downloads.arduino.cc/packages/package_avr_3.6.0_index.json"
 
