@@ -29,7 +29,7 @@ env:
 
     # EBot8
     # pinout=standard, variant=modelP, BOD=2v7, LTO=Os, clock=16MHz_external
-    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/arduino/avr/libraries/Servo/examples/Knob.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/arduino/avr/libraries/SoftwareSerial/examples/SoftwareSerialExample/SoftwareSerialExample.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     
     # EEPROM
     # LTO=Os_flto, clock=20MHz_external
