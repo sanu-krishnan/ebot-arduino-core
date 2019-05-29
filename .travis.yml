@@ -29,8 +29,8 @@ env:
 
     # Ebot8 pro
     - SKETCH_PATH="${HOME}avr/libraries/AVR_examples/examples/Blink/Blink.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    - SKETCH_PATH="${HOME}avr/libraries/AVR_examples" BOARD_ID="EBots:avr:1284:pinout=ebot" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    - SKETCH_PATH="${HOME}avr/libraries/AVR_examples" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${HOME}avr/libraries/AVR_examples/examples/Blink/Blink.ino" BOARD_ID="EBots:avr:1284:pinout=ebot" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${HOME}avr/libraries/AVR_examples/examples/Blink/Blink.ino" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/01.Basics" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/02.Digital" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/03.Analog" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
