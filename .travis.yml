@@ -28,7 +28,11 @@ env:
     # Each line in the matrix will be run as a separate job in the Travis CI build
 
     # Ebot8 pro
-    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/01.Basics" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/02.Digital" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/03.Analog" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/04.Communication" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/08.Strings" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     # Ebot8
     # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
 
@@ -67,6 +71,12 @@ before_install:
   # - install_package "arduino:avr" "https://downloads.arduino.cc/packages/package_avr_3.6.0_index.json"
 
   - ls
+  - cd avr
+  - ls
+  - cd libraries
+  - ls
+  - cd Ebot
+  - cd ../../..
   - cd ${APPLICATION_FOLDER}
   - ls
   - cd ..
