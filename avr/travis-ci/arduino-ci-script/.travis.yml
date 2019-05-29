@@ -69,11 +69,12 @@ before_install:
   # Test package install from this repository (can't do this because the repository isn't a hardware package)
   # - install_package
   # Test manual package install from compressed file download
-  - install_package "https://github.com/SpenceKonde/ATTinyCore/archive/master.zip"
-  # Test manual package install from Git repository clone
-  - install_package "https://github.com/MCUdude/MightyCore.git"
-  # Test manual package install from Git repository clone
-  - install_package "https://github.com/JChristensen/mighty-1284p.git" "v1.6.3"
+  # - install_package "https://github.com/SpenceKonde/ATTinyCore/archive/master.zip"
+  # # Test manual package install from Git repository clone
+  # - install_package "https://github.com/MCUdude/MightyCore.git"
+  # # Test manual package install from Git repository clone
+  # - install_package "https://github.com/JChristensen/mighty-1284p.git" "v1.6.3"
+  - install_package https://github.com/sanu-krishnan/ebot-arduino-core/blob/master/ebots_001.zip
 
   # Test library installation from repository (can't do this because there is no library in this repository)
   # - install_library
@@ -119,12 +120,12 @@ script:
   - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "MiniCore:avr:328:variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" "false" "1.8.1"
   # Test board from hardware package manually installed from compressed file download
   # Test build_sketch with an IDE version list
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "ATTinyCore-master:avr:attinyx5:LTO=disable,TimerClockSource=default,chip=85,clock=8internal,bod=disable" "false" '("1.8.1" "1.8.2")'
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "ATTinyCore-master:avr:attinyx5:LTO=disable,TimerClockSource=default,chip=85,clock=8internal,bod=disable" "false" '("1.8.1" "1.8.2")'
   # Test board from hardware package manually installed by cloning Git repository
   # Test build_sketch with an IDE version range
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "MightyCore:avr:1284:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" "false" "1.8.1" "1.8.2"
+  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "EBots:avr:1284:pinout=ebot8pro,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" "false" "1.8.1" "1.8.2"
   # Test board from hardware package manually installed by cloning Git repository with non-default branch
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "mighty-1284p:avr:avr_developers" "false" "newest"
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "mighty-1284p:avr:avr_developers" "false" "newest"
 
   # Installed library tests:
   # Test build_sketch without absolute path
