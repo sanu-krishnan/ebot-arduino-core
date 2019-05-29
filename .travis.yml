@@ -29,24 +29,8 @@ env:
 
     # Ebot8 pro
     - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    - SKETCH_PATH="${HOME}/Arduino/hardware/EBots/avr/libraries/AVR_examples/examples/Blink/Blink.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/hardware/EBots/avr/libraries/AVR_examples/examples/Blink_using_Timer0/Blink_using_Timer0.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-  #   - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/hardware/EBots/avr/libraries/AVR_examples/examples/Measure_period_length/Measure_period_length.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-  #   - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/hardware/EBots/avr/libraries/AVR_examples/examples/Read_port_write_port/Read_port_write_port.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-  #   - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/hardware/EBots/avr/libraries/AVR_examples/examples/Watch_dog_timer/Watch_dog_timer.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-   
-  #  #EEPROM
-  #   - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/EBots/avr/libraries/EEPROM/examples/eeprom_clear/eeprom_clear.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
-  #   - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/EBots/avr/libraries/EEPROM/examples/eeprom_crc/eeprom_crc.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
-  #   - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/EBots/avr/libraries/EEPROM/examples/eeprom_get/eeprom_get.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
-  #   - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/EBots/avr/libraries/EEPROM/examples/eeprom_iteration/eeprom_iteration.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
-  #   - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/EBots/avr/libraries/EEPROM/examples/eeprom_put/eeprom_put.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
-  #   - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/EBots/avr/libraries/EEPROM/examples/eeprom_put/eeprom_put.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
-  #   - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/EBots/avr/libraries/EEPROM/examples/eeprom_put/eeprom_put.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
-  #   - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/EBots/avr/libraries/EEPROM/examples/eeprom_put/eeprom_put.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
-
-  #   - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/EBots/avr/libraries/Servo" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-  #   - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/EBots/avr/libraries/Wire" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+   # Ebot8
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/" BOARD_ID="EBots:avr:1284:pinout=ebot" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
 
 before_install:
   # Check for tabs (excluding subtrees and keywords.txt files)
