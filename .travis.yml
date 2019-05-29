@@ -69,7 +69,53 @@ before_install:
 script:
   # Verify every sketch in SKETCH_PATH using the environment variables set in the matrix
   # - build_sketch "$SKETCH_PATH" "$BOARD_ID" "$ALLOW_FAILURE" "all"
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "EBots:avr:1284:pinout=ebot8pro,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" "false" "1.8.1" "1.8.2"
+
+  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "EBots:avr:1284:pinout=ebot8pro,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" "false" "all"
+
+  # # Installed library tests:
+  # # Test build_sketch without absolute path
+  # # Test library installed from .zip with rename
+  # - cd "${SKETCHBOOK_FOLDER}/libraries/MPU9250/examples/MPU9250/"
+  # - build_sketch "MPU9250.ino" "arduino:avr:uno" "false" "newest"
+  # # Test library installed from .zip with dot in the folder name
+  # - build_sketch "${SKETCHBOOK_FOLDER}/libraries/CapacitiveSensor-0.5.1/examples/CapacitiveSensorSketch/CapacitiveSensorSketch.pde" "arduino:avr:uno" "false" "newest"
+  # # Test library installed from .zip
+  # # Test build_sketch with "all" IDE version name
+  # - build_sketch "${SKETCHBOOK_FOLDER}/libraries/NewPing/examples/NewPingExample/NewPingExample.pde" "arduino:avr:uno" "false" "all"
+  # # Test library installed from .git
+  # - build_sketch "${SKETCHBOOK_FOLDER}/libraries/WirelessOregonV2/examples/OregonReceiver/OregonReceiver.ino" "arduino:avr:uno" "false" "newest"
+  # # Test library installed from .git with branch
+  # - build_sketch "${SKETCHBOOK_FOLDER}/libraries/NanodeUNIO/examples/NanodeUNIO_test/NanodeUNIO_test.pde" "arduino:avr:uno" "false" "newest"
+  # # Test library installed from .git with rename
+  # - build_sketch "${SKETCHBOOK_FOLDER}/libraries/ArduinoShell/examples/ShellBlink/ShellBlink.ino" "arduino:avr:uno" "false" "newest"
+  # # Test library installed from .git with branch and rename
+  # - build_sketch "${SKETCHBOOK_FOLDER}/libraries/max_7456/examples/HelloWorld/HelloWorld.ino" "arduino:avr:uno" "false" "newest"
+  # # Test library installed from Library Manager
+  # - build_sketch "${SKETCHBOOK_FOLDER}/libraries/Pushetta/examples/simple_notification/simple_notification.ino" "arduino:avr:uno" "false" "newest"
+
+  # # build_sketch with version argument tests
+  # # Test build_sketch with no IDE version argument (should use all installed IDE versions)
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "arduino:avr:uno" "false"
+  # # Test build_sketch with "oldest" IDE version name
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "arduino:avr:uno" "false" "oldest"
+  # # Test build_sketch allowed to fail (this will fail because WirelessOregonV2 is AVR specific)
+  # - build_sketch "${SKETCHBOOK_FOLDER}/libraries/WirelessOregonV2/examples/OregonReceiver/OregonReceiver.ino" "arduino:sam:arduino_due_x_dbg" "true" "newest"
+
+  # # build_sketch with folder argument tests:
+  # # Test build_sketch with folder argument with specific IDE version
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" "1.8.1"
+  # # Test build_sketch with folder argument with "oldest" IDE version name
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" "oldest"
+  # # Test build_sketch with folder argument with "newest" IDE version name
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" "newest"
+  # # Test build_sketch with folder argument with "all" IDE version name
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" "all"
+  # # Test build_sketch with folder argument with no IDE version specified (should use all installed IDE versions)
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false"
+  # # Test build_sketch with folder argument with an IDE version list
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" '("1.8.1" "1.8.2")'
+  # # Test build_sketch with folder argument with an IDE version range
+  # - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" "1.8.1" "1.8.2"
  
 
 
