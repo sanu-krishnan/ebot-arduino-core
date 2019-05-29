@@ -28,9 +28,9 @@ env:
     # Each line in the matrix will be run as a separate job in the Travis CI build
 
     # Ebot8 pro
-    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-   # Ebot8
-    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/" BOARD_ID="EBots:avr:1284:pinout=ebot" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # Ebot8
+    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
 
 before_install:
   # Check for tabs (excluding subtrees and keywords.txt files)
@@ -65,6 +65,15 @@ before_install:
   - install_package "EBots:avr" "https://raw.githubusercontent.com/sanu-krishnan/ebot-arduino-core/master/package_ebots.cc_index.json"
   # Install beta version of Arduino AVR Boards, required for ATmega324PB
   # - install_package "arduino:avr" "https://downloads.arduino.cc/packages/package_avr_3.6.0_index.json"
+
+  - ls
+  - cd ${APPLICATION_FOLDER}
+  - ls
+  - cd ..
+  - ls
+  - cd ${SKETCHBOOK_FOLDER}
+  - ls
+  - cd ..
 
 
 script:
