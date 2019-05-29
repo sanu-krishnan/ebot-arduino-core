@@ -29,7 +29,7 @@ env:
 
     # Ebot8 pro
     - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/hardware/EBots/avr/libraries/AVR_examples" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/hardware/EBots/avr/libraries/AVR_examples/examples/Blink/Blink.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/hardware/EBots/avr/libraries/EEPROM" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
     - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/hardware/EBots/avr/libraries/Servo" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/hardware/EBots/avr/libraries/Wire" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
