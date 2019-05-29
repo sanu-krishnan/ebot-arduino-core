@@ -312,7 +312,7 @@ before_install:
   - install_ide "$IDE_VERSIONS"
 
   # Install MightyCore from the repository
-  - install_package "https://github.com/sanu-krishnan/ebot-arduino-core/blob/master/ebots_001.zip?raw=true"
+  - install_package "https://raw.githubusercontent.com/sanu-krishnan/ebot-arduino-core/master/package_ebots.cc_index.json"
   # Install beta version of Arduino AVR Boards, required for ATmega324PB
   - install_package "arduino:avr" "https://downloads.arduino.cc/packages/package_avr_3.6.0_index.json"
 
