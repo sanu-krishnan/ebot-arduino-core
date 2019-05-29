@@ -1,4 +1,4 @@
-# This file is used to test the script with Travis CI
+# This file is used to configure the Travis CI tests of MightyCore
 
 # Although sudo is no longer required by arduino-ci-script since the 1.0.0 release, for some reason setting "sudo: false" causes the Travis CI build time to significantly increase so this setting is left as "sudo: required"
 sudo: required
@@ -8,51 +8,296 @@ env:
   global:
     # The Arduino IDE will be installed at APPLICATION_FOLDER/arduino
     - APPLICATION_FOLDER="${HOME}/arduino-ide"
-    - SKETCHBOOK_FOLDER="${HOME}/arduino-sketchbook"
+    - SKETCHBOOK_FOLDER="${HOME}/Arduino"
+
+    # README.md states that LTO should only be used with Arduino IDE 1.6.11 and newer
+    - OLDEST_IDE_VERSION_TO_TEST_WITH_LTO="1.6.11"
+
+    # The oldest version of the Arduino IDE that MightyCore's platform.txt is compatible with is 1.6.2 but that IDE version has a bug that interferes with other installations of the IDE.
+    # Arduino IDE 1.6.3-1.6.5-r5 on Linux don't seem to include the MightyCore bundled library files (this information copied from MegaCore so may not apply to MightyCore).
+    # Arduino IDE 1.6.6 has many function prototype generation failures.
+    # So testing is done with milestone Arduino IDE versions, 1.6.7 and newer.
+    - IDE_VERSIONS_BEFORE_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO='"1.6.7" "1.6.9"'
+    - IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO='"'"$OLDEST_IDE_VERSION_TO_TEST_WITH_LTO"'" "1.6.13" "1.8.0" "1.8.5" "newest"'
+    - IDE_VERSION_LIST_LTO='('"$IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO"')'
+    - IDE_VERSION_LIST_FULL='('"${IDE_VERSIONS_BEFORE_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO} ${IDE_VERSIONS_FROM_OLDEST_IDE_VERSION_TO_TEST_WITH_LTO}"')'
+
 
   matrix:
-    # Test install_ide with no argument (using full version list). This would cause the Travis CI build to take much longer so I have it disabled
-    # - INSTALL_IDE_START_VERSION=""
-    # Test install_ide using full version list
-    - INSTALL_IDE_START_VERSION="all" VERBOSITY_LEVEL=0 VERBOSE_COMPILATION="false"
-    # Test install_ide using custom version list. Test the use of the special version names "oldest" and "newest" in a version list. Test use of "hourly" version name.
-    - INSTALL_IDE_START_VERSION='("oldest" "1.8.1" "1.8.2" "newest" "hourly")' VERBOSITY_LEVEL=1 VERBOSE_COMPILATION="true"
-    # Allowed to fail
-    # Test install_ide using single version
-    # test the failure behavior of install_package when a Boards Manager installation is attempted using an IDE version that doesn't support it.
-    - INSTALL_IDE_START_VERSION="1.6.3" VERBOSITY_LEVEL=2 VERBOSE_COMPILATION="false"
-    # Test install_ide using version range. Test the use of the special version names "oldest" and "newest" in a version range.
-    - INSTALL_IDE_START_VERSION="oldest" INSTALL_IDE_END_VERSION="newest" VERBOSITY_LEVEL=0 VERBOSE_COMPILATION="false"
+    # Compile every example sketch for every library included with MightyCore for every MCU, every board option, every installed IDE version
+    # Each line in the matrix will be run as a separate job in the Travis CI build
 
+    # ATmega1284
+    # pinout=standard, variant=modelP, BOD=2v7, LTO=Os, clock=16MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:1284:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # LTO=Os_flto, clock=20MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:1284:pinout=standard,variant=modelP,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+    # pinout=bobuino, variant=modelNonP, BOD=4v3, clock=18_432MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:1284:pinout=bobuino,variant=modelNonP,BOD=4v3,LTO=Os,clock=18_432MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # pinout=sanguino, BOD=1v8, clock=12MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:1284:pinout=sanguino,variant=modelP,BOD=1v8,LTO=Os,clock=12MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # BOD=disabled, clock=8MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:1284:pinout=standard,variant=modelP,BOD=disabled,LTO=Os,clock=8MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # F_CPU of 8 MHz has already been fully tested and the BOD and internal clock configuration will have no effect on code so it's only necessary to do a single verification per IDE version for the 8 MHz internal clock setting
+    # clock=8MHz_internal
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" BOARD_ID="MightyCore:avr:1284:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=8MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=1MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:1284:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=1MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
 
-matrix:
-  allow_failures:
-    # The expected behavior is failure because 1.6.3 doesn't support boards manager installation.
-    - env: INSTALL_IDE_START_VERSION="1.6.3" VERBOSITY_LEVEL=2 VERBOSE_COMPILATION="false"
+    # ATmega644
+    # pinout=standard, variant=modelP, BOD=2v7, LTO=Os, clock=16MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:644:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # LTO=Os_flto, clock=20MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:644:pinout=standard,variant=modelP,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+    # pinout=bobuino, variant=modelA, BOD=4v3, clock=18_432MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:644:pinout=bobuino,variant=modelA,BOD=4v3,LTO=Os,clock=18_432MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # pinout=sanguino, BOD=1v8, clock=12MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:644:pinout=sanguino,variant=modelP,BOD=1v8,LTO=Os,clock=12MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # BOD=disabled, clock=8MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:644:pinout=standard,variant=modelP,BOD=disabled,LTO=Os,clock=8MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # F_CPU of 8 MHz has already been fully tested and the BOD and internal clock configuration will have no effect on code so it's only necessary to do a single verification per IDE version for the 8 MHz internal clock setting
+    # clock=8MHz_internal
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" BOARD_ID="MightyCore:avr:644:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=8MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=1MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:644:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=1MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
 
+    # ATmega324 - Since the variant files will be compiled significantly differently for ATmega324PB, test each pinout for variant=modelPB
+    # pinout=standard, variant=modelP, BOD=2v7, LTO=Os, clock=16MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:324:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # LTO=Os_flto, clock=20MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:324:pinout=standard,variant=modelP,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+    # pinout=bobuino, variant=modelA, BOD=4v3, clock=18_432MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:324:pinout=bobuino,variant=modelA,BOD=4v3,LTO=Os,clock=18_432MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # pinout=sanguino, BOD=1v8, clock=12MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:324:pinout=sanguino,variant=modelP,BOD=1v8,LTO=Os,clock=12MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # pinout=standard, variant=modelPB, BOD=disabled, clock=8MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:324:pinout=standard,variant=modelPB,BOD=disabled,LTO=Os,clock=8MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # pinout=standard, variant=modelPB, clock=8MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:324:pinout=bobuino,variant=modelPB,BOD=2v7,LTO=Os,clock=8MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # pinout=standard, variant=modelPB, clock=1MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:324:pinout=sanguino,variant=modelPB,BOD=2v7,LTO=Os,clock=1MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
 
-addons:
-  apt:
-    sources:
-    - debian-sid
-    packages:
-    - shellcheck
+    # ATmega164
+    # Some library examples use more memory than this microcontroller provides so each library or sketch must be be done in a separate job
+    # AVR_examples
+    # pinout=standard, variant=modelP, BOD=2v7, LTO=Os, clock=16MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/AVR_examples" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # EEPROM
+    # LTO=Os_flto, clock=20MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/EEPROM" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+
+    # Ethernet/AdvancedChatServer
+    # pinout=bobuino, variant=modelA, BOD=4v3, clock=18_432MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/AdvancedChatServer/AdvancedChatServer.ino" BOARD_ID="MightyCore:avr:164:pinout=bobuino,variant=modelA,BOD=4v3,LTO=Os,clock=18_432MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/BarometricPressureWebServer
+    # Compiling with LTO=Os errors with "Sketch too big"
+    # pinout=sanguino, BOD=1v8, clock=12MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/BarometricPressureWebServer/BarometricPressureWebServer.ino" BOARD_ID="MightyCore:avr:164:pinout=sanguino,variant=modelP,BOD=1v8,LTO=Os_flto,clock=12MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/ChatServer
+    # BOD=disabled, clock=8MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/ChatServer/ChatServer.ino" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=disabled,LTO=Os,clock=8MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/DhcpAddressPrinter
+    # clock=8MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/DhcpAddressPrinter/DhcpAddressPrinter.ino" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=8MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/DhcpChatServer - fails to compile "Sketch too big"
+
+    # Ethernet/TelnetClient
+    # clock=1MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/TelnetClient/TelnetClient.ino" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=1MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/UDPSendReceiveString
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/UDPSendReceiveString/UDPSendReceiveString.ino" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/UdpNtpClient
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/UdpNtpClient/UdpNtpClient.ino" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/WebClient - fails to compile "Sketch too big"
+
+    # Ethernet/WebClientRepeating - fails to compile "Sketch too big"
+
+    # Ethernet/WebServer
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/WebServer/WebServer.ino" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Optiboot_flasher
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Optiboot_flasher" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD
+    # CardInfo and Files examples fail to compile "not enough memory"
+    # SD/Datalogger
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SD/examples/Datalogger/Datalogger.ino" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD/DumpFile
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SD/examples/DumpFile/DumpFile.ino" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD/ReadWrite
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SD/examples/ReadWrite/ReadWrite.ino" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD/listfiles
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SD/examples/listfiles/listfiles.ino" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Servo
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Servo" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SPI
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SPI" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Timer
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Timer" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Wire
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Wire" BOARD_ID="MightyCore:avr:164:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # ATmega32
+    # pinout=standard, BOD=2v7, LTO=Os, clock=16MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:32:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # LTO=Os_flto, clock=20MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:32:pinout=standard,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+    # pinout=bobuino, BOD=4v0, clock=18_432MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:32:pinout=bobuino,BOD=4v0,LTO=Os,clock=18_432MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # pinout=sanguino, BOD=disabled, clock=12MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:32:pinout=sanguino,BOD=disabled,LTO=Os,clock=12MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=8MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:32:pinout=standard,BOD=2v7,LTO=Os,clock=8MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # F_CPU of 8 MHz has already been fully tested and the BOD and internal clock configuration will have no effect on code so it's only necessary to do a single verification per IDE version for the 8 MHz internal clock setting
+    # clock=8MHz_internal
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" BOARD_ID="MightyCore:avr:32:pinout=standard,BOD=2v7,LTO=Os,clock=8MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # clock=1MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries" BOARD_ID="MightyCore:avr:32:pinout=standard,BOD=2v7,LTO=Os,clock=1MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # ATmega16
+    # Some library examples use more memory than this microcontroller provides so each library or sketch must be be done in a separate job
+    # AVR_examples
+    # pinout=standard, BOD=2v7, LTO=Os, clock=16MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/AVR_examples" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # EEPROM
+    # LTO=Os_flto, clock=20MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/EEPROM" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+
+    # Ethernet/AdvancedChatServer
+    # pinout=bobuino, BOD=4v0, clock=18_432MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/AdvancedChatServer/AdvancedChatServer.ino" BOARD_ID="MightyCore:avr:16:pinout=bobuino,BOD=4v0,LTO=Os,clock=18_432MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/BarometricPressureWebServer
+    # Compiling with LTO=Os errors with "Sketch too big"
+    # pinout=sanguino, BOD=disabled, clock=12MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/BarometricPressureWebServer/BarometricPressureWebServer.ino" BOARD_ID="MightyCore:avr:16:pinout=sanguino,BOD=disabled,LTO=Os_flto,clock=12MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/ChatServer
+    # clock=8MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/ChatServer/ChatServer.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=8MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/DhcpAddressPrinter
+    # clock=8MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/DhcpAddressPrinter/DhcpAddressPrinter.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=8MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/DhcpChatServer
+    # Compiling with LTO=Os errors with "Sketch too big"
+    # clock=1MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/DhcpChatServer/DhcpChatServer.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os_flto,clock=1MHz_internal" ALLOW_FAILURE="false" START_IDE_VERSION="$$OLDEST_IDE_VERSION_TO_TEST_WITH_LTO" END_IDE_VERSION="newest"
+
+    # Ethernet/TelnetClient
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/TelnetClient/TelnetClient.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/UDPSendReceiveString
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/UDPSendReceiveString/UDPSendReceiveString.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/UdpNtpClient
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/UdpNtpClient/UdpNtpClient.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Ethernet/WebClient - fails to compile "Sketch too big"
+
+    # Ethernet/WebClientRepeating - fails to compile "Sketch too big"
+
+    # Ethernet/WebServer
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Ethernet/examples/WebServer/WebServer.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Optiboot_flasher
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Optiboot_flasher" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD
+    # CardInfo and Files examples fail to compile "not enough memory"
+    # SD/Datalogger
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SD/examples/Datalogger/Datalogger.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD/DumpFile
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SD/examples/DumpFile/DumpFile.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD/ReadWrite
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SD/examples/ReadWrite/ReadWrite.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD/listfiles
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SD/examples/listfiles/listfiles.ino" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Servo
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Servo" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SPI
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SPI" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Timer
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Timer" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Wire
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Wire" BOARD_ID="MightyCore:avr:16:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # ATmega8535
+    # Some library examples use more memory than this microcontroller provides so each library or sketch must be be done in a separate job
+    # AVR_examples
+    # pinout=standard, BOD=2v7, LTO=Os, clock=16MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/AVR_examples" BOARD_ID="MightyCore:avr:8535:pinout=standard,BOD=2v7,LTO=Os,clock=16MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # EEPROM
+    # LTO=Os_flto, clock=20MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/EEPROM" BOARD_ID="MightyCore:avr:8535:pinout=standard,BOD=2v7,LTO=Os_flto,clock=20MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+
+    # Ethernet
+    # All Ethernet examples fail to compile "section `.text' will not fit in region `text'"
+
+    # Optiboot_flasher
+    # pinout=sanguino, BOD=disabled, clock=12MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Optiboot_flasher" BOARD_ID="MightyCore:avr:8535:pinout=sanguino,BOD=disabled,LTO=Os,clock=12MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SD
+    # All SD library examples fail to compile "section `.text' will not fit in region `text'"
+
+    # Servo
+    # clock=8MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Servo" BOARD_ID="MightyCore:avr:8535:pinout=standard,BOD=2v7,LTO=Os,clock=8MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # SPI
+    # clock=8MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/SPI" BOARD_ID="MightyCore:avr:8535:pinout=standard,BOD=2v7,LTO=Os_flto,clock=8MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_LTO"
+
+    # Timer
+    # clock=1MHz_internal
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Timer" BOARD_ID="MightyCore:avr:8535:pinout=standard,BOD=2v7,LTO=Os,clock=1MHz_internal" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+
+    # Wire
+    # pinout=bobuino, BOD=4v0, clock=18_432MHz_external
+    - SKETCH_PATH="${SKETCHBOOK_FOLDER}/hardware/MightyCore/avr/libraries/Wire" BOARD_ID="MightyCore:avr:8535:pinout=bobuino,BOD=4v0,LTO=Os,clock=18_432MHz_external" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
 
 
 before_install:
-  # Check for issues in the script
-  - bash -c 'shopt -s globstar; shellcheck arduino-ci-script.sh'
+  # Check for tabs (excluding subtrees and keywords.txt files)
+  - find . -path './.git' -prune -or -path './avr/bootloaders/optiboot_flash' -prune -or -path './avr/cores/MCUdude_corefiles' -prune -or -path './avr/travis-ci/arduino-ci-script' -prune -or \( -not -name 'keywords.txt' -and -type f \) -exec grep --with-filename --line-number --binary-files=without-match --regexp=$'\t' '{}' \; -exec echo 'Tab found.' \; -exec false '{}' +
 
-  # Check for trailing whitespace in all files in the repository
-  - "if grep --line-number --recursive --exclude-dir=.git '[[:blank:]]$' .; then echo 'Trailing whitespace found.'; false; fi"
-  # Check for tabs in all files in the repository
-  - "if grep --line-number --recursive --exclude-dir=.git $'\t' .; then echo 'Tab found.'; false; fi"
-  # Check if all files in the repository end in a newline (https://stackoverflow.com/a/25686825)
-  - find . -path ./.git -prune -o -type f -print0 | xargs -0 -L1 bash -c 'if test "$(tail --bytes=1 "$0")"; then echo "No new line at end of $0"; false; fi'
+  # Check for non-Unix line endings (excluding subtrees)
+  - find . -path './.git' -prune -or -path './avr/bootloaders/optiboot_flash' -prune -or -path './avr/cores/MCUdude_corefiles' -prune -or -path './avr/travis-ci/arduino-ci-script' -prune -or -type f -exec grep --files-with-matches --binary-files=without-match --regexp=$'\r$' '{}' \; -exec echo 'Non-Unix EOL detected.' \; -exec false '{}' +
 
-  - source "${TRAVIS_BUILD_DIR}/arduino-ci-script.sh"
+  # Install the script used to simplify use of Travis CI for testing Arduino projects
+  - source "${TRAVIS_BUILD_DIR}/avr/travis-ci/arduino-ci-script/arduino-ci-script.sh"
 
-  - set_script_verbosity "$VERBOSITY_LEVEL"
+  # These functions can be used to get verbose output for debugging the script
+  # set_script_verbosity can be set to values from 0 - 2 (verbosity off - maximum verbosity)
+  #- set_script_verbosity 1
+  # Setting set_verbose_output_during_compilation to true is the same as File > Preferences > Show verbose output during > compilation (check) in the Arduino IDE
+  #- set_verbose_output_during_compilation "true"
 
   - set_application_folder "$APPLICATION_FOLDER"
   - set_sketchbook_folder "$SKETCHBOOK_FOLDER"
@@ -63,127 +308,32 @@ before_install:
   # Check for library issues that don't affect compilation
   - set_library_testing "true"
 
-  - install_ide "$INSTALL_IDE_START_VERSION" "$INSTALL_IDE_END_VERSION"
+  # Install all IDE version required by the job
+  - install_ide "$IDE_VERSIONS"
 
-  # Install hardware packages
-  # Test package install from this repository (can't do this because the repository isn't a hardware package)
-  # - install_package
-  # Test manual package install from compressed file download
-  #- install_package "https://github.com/SpenceKonde/ATTinyCore/archive/master.zip"
-  - install_package "https://github.com/sanu-krishnan/ebot-arduino-core/blob/master/ebots_001.zip"
-  # Test manual package install from Git repository clone
-  #- install_package "https://github.com/MCUdude/MightyCore.git"
-  # Test manual package install from Git repository clone
-  #- install_package "https://github.com/JChristensen/mighty-1284p.git" "v1.6.3"
-
-  # Test library installation from repository (can't do this because there is no library in this repository)
-  # - install_library
-  # Test library install from .zip file. A non-GitHub library download must be used because GitHub appends -{branch name} or -{release version} to the .zip downloads and having a library folder installed whos name contains "-" causes arduino 1.5.6 or older to hang.
-  - install_library "https://bitbucket.org/teckel12/arduino-new-ping/downloads/NewPing_v1.8.zip"
-  # Test library install from .zip file with rename. If the rename doesn't work then any job verifying with Arduino IDE 1.5.6 or older will hang because GitHub changes the folder name to MPU9250-master, which is not a valid folder name on those IDE versions.
-  - install_library "https://github.com/brianc118/MPU9250/archive/master.zip" "MPU9250"
-  # Test library install from .zip file/folder that has a dot in the name
-  - install_library "https://github.com/arduino-libraries/CapacitiveSensor/archive/0.5.1.zip"
-  # Test library install from git repo
-  - install_library "https://github.com/sfrwmaker/WirelessOregonV2.git"
-  # Test library install from git repo with branch
-  - install_library "https://github.com/sde1000/NanodeUNIO.git" "master"
-  # Test library install from git repo with rename
-  - install_library "https://github.com/mikaelpatel/Arduino-Shell.git" "" "ArduinoShell"
-  # Test library install from git repo with branch and rename
-  - install_library "https://github.com/Avamander/max7456.git" "master" "max_7456"
-  # Test set_verbose_output_during_compilation.
-  - set_verbose_output_during_compilation "$VERBOSE_COMPILATION"
-
-  # Boards Manager and Library Manager tests are done as late as possible to allow job 3 to do more thorough testing of script verbosity level 2 before the job fails
-
-  # Test Boards Manager package install without URL. Test error handling of attempting to do a Boards Manager installation when the newest installed IDE version doesn't support it (should print a helpful error message and fail instead of hanging).
-  - install_package "arduino:sam"
-  # Test Boards Manager package install with URL
-  - install_package "MiniCore:avr" "https://mcudude.github.io/MiniCore/package_MCUdude_MiniCore_index.json"
-
-  # Test library install from Library Manager
-  - install_library "Pushetta:1.0.1"
+  # Install MightyCore from the repository
+  - install_package
+  # Install beta version of Arduino AVR Boards, required for ATmega324PB
+  - install_package "arduino:avr" "https://downloads.arduino.cc/packages/package_avr_3.6.0_index.json"
 
 
 script:
-  # Verify sketches:
-  # build_sketch arguments: sketch name, fqbn, IDE version, allow failure
-  # IDE version: Use "all" for IDE version argument to verify sketch with all versions of the Arduino IDE, use "newest" for IDE version argument to verify sketch with the newest version of the Arduino IDE
+  # Verify every sketch in SKETCH_PATH using the environment variables set in the matrix
+  - build_sketch "$SKETCH_PATH" "$BOARD_ID" "$ALLOW_FAILURE" "all"
 
-  # Installed package tests:
-  # Test board from hardware package installed via Boards Manager without URL
-  # Test build_sketch with "newest" special version name
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "arduino:sam:arduino_due_x_dbg" "false" "newest"
-  # Test board from hardware package installed with Boards Manager URL
-  # Test build_sketch with specific IDE version
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "MiniCore:avr:328:variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" "false" "1.8.1"
-  # Test board from hardware package manually installed from compressed file download
-  # Test build_sketch with an IDE version list
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "ATTinyCore-master:avr:attinyx5:LTO=disable,TimerClockSource=default,chip=85,clock=8internal,bod=disable" "false" '("1.8.1" "1.8.2")'
-  # Test board from hardware package manually installed by cloning Git repository
-  # Test build_sketch with an IDE version range
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "MightyCore:avr:1284:pinout=standard,variant=modelP,BOD=2v7,LTO=Os,clock=16MHz_external" "false" "1.8.1" "1.8.2"
-  # Test board from hardware package manually installed by cloning Git repository with non-default branch
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "mighty-1284p:avr:avr_developers" "false" "newest"
 
-  # Installed library tests:
-  # Test build_sketch without absolute path
-  # Test library installed from .zip with rename
-  - cd "${SKETCHBOOK_FOLDER}/libraries/MPU9250/examples/MPU9250/"
-  - build_sketch "MPU9250.ino" "arduino:avr:uno" "false" "newest"
-  # Test library installed from .zip with dot in the folder name
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/CapacitiveSensor-0.5.1/examples/CapacitiveSensorSketch/CapacitiveSensorSketch.pde" "arduino:avr:uno" "false" "newest"
-  # Test library installed from .zip
-  # Test build_sketch with "all" IDE version name
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/NewPing/examples/NewPingExample/NewPingExample.pde" "arduino:avr:uno" "false" "all"
-  # Test library installed from .git
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/WirelessOregonV2/examples/OregonReceiver/OregonReceiver.ino" "arduino:avr:uno" "false" "newest"
-  # Test library installed from .git with branch
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/NanodeUNIO/examples/NanodeUNIO_test/NanodeUNIO_test.pde" "arduino:avr:uno" "false" "newest"
-  # Test library installed from .git with rename
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/ArduinoShell/examples/ShellBlink/ShellBlink.ino" "arduino:avr:uno" "false" "newest"
-  # Test library installed from .git with branch and rename
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/max_7456/examples/HelloWorld/HelloWorld.ino" "arduino:avr:uno" "false" "newest"
-  # Test library installed from Library Manager
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/Pushetta/examples/simple_notification/simple_notification.ino" "arduino:avr:uno" "false" "newest"
-
-  # build_sketch with version argument tests
-  # Test build_sketch with no IDE version argument (should use all installed IDE versions)
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "arduino:avr:uno" "false"
-  # Test build_sketch with "oldest" IDE version name
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics/BareMinimum/BareMinimum.ino" "arduino:avr:uno" "false" "oldest"
-  # Test build_sketch allowed to fail (this will fail because WirelessOregonV2 is AVR specific)
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/WirelessOregonV2/examples/OregonReceiver/OregonReceiver.ino" "arduino:sam:arduino_due_x_dbg" "true" "newest"
-
-  # build_sketch with folder argument tests:
-  # Test build_sketch with folder argument with specific IDE version
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" "1.8.1"
-  # Test build_sketch with folder argument with "oldest" IDE version name
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" "oldest"
-  # Test build_sketch with folder argument with "newest" IDE version name
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" "newest"
-  # Test build_sketch with folder argument with "all" IDE version name
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" "all"
-  # Test build_sketch with folder argument with no IDE version specified (should use all installed IDE versions)
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false"
-  # Test build_sketch with folder argument with an IDE version list
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" '("1.8.1" "1.8.2")'
-  # Test build_sketch with folder argument with an IDE version range
-  - build_sketch "${APPLICATION_FOLDER}/arduino/examples/01.Basics" "arduino:avr:uno" "false" "1.8.1" "1.8.2"
-  # Test build_sketch with folder argument required to fail (this will fail because WirelessOregonV2 is AVR specific)
-  - build_sketch "${SKETCHBOOK_FOLDER}/libraries/WirelessOregonV2/examples" "arduino:sam:arduino_due_x_dbg" "require" "newest"
-
-  - publish_report_to_gist "$REPORT_GITHUB_TOKEN" "$REPORT_GIST_URL" "true"
-
+after_script:
+  # Determine user name and repository name from TRAVIS_REPO_SLUG so the configuration will automatically adjust to forks
   - USER_NAME="$(echo "$TRAVIS_REPO_SLUG" | cut -d'/' -f 1)"
   - REPOSITORY_NAME="$(echo "$TRAVIS_REPO_SLUG" | cut -d'/' -f 2)"
-  - publish_report_to_repository "$REPORT_GITHUB_TOKEN" "https://github.com/${USER_NAME}/CI-reports.git" "$REPOSITORY_NAME" "build_$(printf "%05d\n" "${TRAVIS_BUILD_NUMBER}")" "true"
+  # Commit a report of the job results to a folder named with the build number in the MightyCore branch of the CI-reports repository
+  - publish_report_to_repository "$REPORT_GITHUB_TOKEN" "https://github.com/${USER_NAME}/CI-reports.git" "$REPOSITORY_NAME" "build_$(printf "%05d\n" "${TRAVIS_BUILD_NUMBER}")" "false"
 
+  # Print a tab separated report of all sketch verification results to the log
   - display_report
 
 
 notifications:
   email:
-    on_success: always
+    on_success: never
     on_failure: always
