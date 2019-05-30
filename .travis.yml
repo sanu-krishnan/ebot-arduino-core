@@ -31,7 +31,13 @@ env:
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/AVR_examples/examples/Blink/Blink.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/AVR_examples/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/EEPROM/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/MPU6050/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/Ebot_bridge/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/MPU6050/examples/MPU6050_raw/MPU6050_raw.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    
+    # test 1 and 2 are for ebot pro
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/Ebot/examples/test1/test1.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/Ebot/examples/test2/test2.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/Servo/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/SoftwareSerial/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/SPI/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
@@ -45,7 +51,12 @@ env:
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/AVR_examples/examples/Blink/Blink.ino" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/AVR_examples/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/EEPROM/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/MPU6050/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/Ebot_bridge/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/MPU6050/examples/MPU6050_raw/MPU6050_raw.ino" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    # test 3 and 4 are for ebot8
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/Ebot/examples/test3/test3.ino" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/Ebot/examples/test4/test4.ino" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+ 
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/Servo/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/SoftwareSerial/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/SPI/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
