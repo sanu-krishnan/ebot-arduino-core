@@ -29,16 +29,33 @@ env:
 
     # Ebot8 pro
     - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/AVR_examples/examples/Blink/Blink.ino" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/AVR_examples/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/AVR_examples/examples/Blink/Blink.ino" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/01.Basics" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/02.Digital" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/03.Analog" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/04.Communication" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/08.Strings" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/AVR_examples/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/EEPROM/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/MPU6050/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/Servo/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/SoftwareSerial/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/SPI/" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/01.Basics" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/02.Digital" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/03.Analog" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/04.Communication" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/08.Strings" BOARD_ID="EBots:avr:1284:pinout=ebotpro" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    
     # Ebot8
-    # - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
-
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/AVR_examples/examples/Blink/Blink.ino" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/AVR_examples/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/EEPROM/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/MPU6050/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/Servo/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/SoftwareSerial/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${TRAVIS_BUILD_DIR}/avr/libraries/SPI/" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/01.Basics" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/02.Digital" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/03.Analog" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/04.Communication" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    - SKETCH_PATH="${APPLICATION_FOLDER}/arduino/examples/08.Strings" BOARD_ID="EBots:avr:1284:pinout=ebot8" ALLOW_FAILURE="false" IDE_VERSIONS="$IDE_VERSION_LIST_FULL"
+    
+    
 before_install:
   # Check for tabs (excluding subtrees and keywords.txt files)
   - find . -path './.git' -prune -or -path './avr/bootloaders/optiboot_flash' -prune -or -path './avr/cores/MCUdude_corefiles' -prune -or -path './avr/travis-ci/arduino-ci-script' -prune -or \( -not -name 'keywords.txt' -and -type f \) -exec grep --with-filename --line-number --binary-files=without-match --regexp=$'\t' '{}' \; -exec echo 'Tab found.' \; -exec false '{}' +

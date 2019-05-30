@@ -55,8 +55,8 @@ static const uint8_t MISO = PIN_SPI_MISO;
 static const uint8_t SCK = PIN_SPI_SCK;
 
 // i2c
-#define PIN_WIRE_SDA (7)
-#define PIN_WIRE_SCL (6)
+#define PIN_WIRE_SDA (1)
+#define PIN_WIRE_SCL (0)
 static const uint8_t SDA = PIN_WIRE_SDA;
 static const uint8_t SCL = PIN_WIRE_SCL;
 
@@ -123,27 +123,23 @@ const uint16_t PROGMEM port_to_input_PGM[] =
 
 const uint8_t PROGMEM digital_pin_to_port_PGM[] =
     {
-        PD, // 6 | d6
-        PD, // 7 | d7
-        // PC , // 0 | d0
-        // PC , // 1 | d1
+        PC, // 0 | d0
+        PC, // 1 | d1
         PB, // 4 | d2 SS
         PB, // 5 | d3 MOSI
         PB, // 6 | d4 MISO
         PB, // 7 | d5 SCK
-        // PD , // 6 | d6
-        // PD , // 7 | d7
-        PC, // 0 | d0
-        PC, // 1 | d1
+        PD, // 6 | d6
+        PD, // 7 | d7
 
         PC, // 2 | LED
 
-        PB, // 0 | M1 9
-        PB, // 1 | M2 10
-        PB, // 2 | M3 11
-        PC, // 7 | M4 12
+        PB, // 0 | M1	9
+        PB, // 1 | M2	10
+        PB, // 2 | M3	11
+        PC, // 7 | M4	12
         PD, // 4 | PWM1  13
-        PD, // 5 | PWM2 14
+        PD, // 5 | PWM2	14
         PC, // 3 | STDBY 15
 
         PC, // IR0
@@ -165,18 +161,14 @@ const uint8_t PROGMEM digital_pin_to_port_PGM[] =
 
 const uint8_t PROGMEM digital_pin_to_bit_mask_PGM[] =
     {
-        _BV(6),
-        _BV(7), // 7
-        // _BV(0),
-        // _BV(1),
+        _BV(0),
+        _BV(1),
         _BV(4),
         _BV(5),
         _BV(6),
         _BV(7),
-        // _BV(6),
-        // _BV(7), // 7
-        _BV(0),
-        _BV(1),
+        _BV(6),
+        _BV(7), // 7
 
         _BV(2),
 
@@ -207,18 +199,14 @@ const uint8_t PROGMEM digital_pin_to_bit_mask_PGM[] =
 
 const uint8_t PROGMEM digital_pin_to_timer_PGM[] =
     {
-        TIMER2B, //6
-        TIMER2A, //7
-        // NOT_ON_TIMER, //0
-        // NOT_ON_TIMER,//1
+        NOT_ON_TIMER, //0
+        NOT_ON_TIMER, //1
         TIMER0B,      //2
         NOT_ON_TIMER, //3
         TIMER3A,      //4
         TIMER3B,      //5
-        // TIMER2B,//6
-        // TIMER2A, //7
-        NOT_ON_TIMER, //0
-        NOT_ON_TIMER, //1
+        TIMER2B,      //6
+        TIMER2A,      //7
 
         NOT_ON_TIMER,
 
