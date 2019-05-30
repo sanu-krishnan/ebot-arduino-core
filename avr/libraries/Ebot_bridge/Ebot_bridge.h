@@ -15,8 +15,13 @@
 #define _NEXT_INT (atoi(strtok(0, " ")))
 #define _NEXT_CHAR (strtok(0, " "))
 
-const int ebot_pro_p[9] = {6, 7, 2, 3, 4, 5, 0, 1, 8};
+//int ebot_pro_p[9] = {6, 7, 2, 3, 4, 5, 0, 1, 8};
+
+#ifdef EBOT_8_PRO
 #define SerialPort Serial1
+#else
+#define SerialPort Serial
+#endif
 
 #define numberOfPins 8
 #define servoIndexof(x) (x)
@@ -43,7 +48,7 @@ static Adafruit_NeoPixel pixelArray[] = {
     Adafruit_NeoPixel(1, 7, NEO_GRB + NEO_KHZ800),
 };
 
-
+int outputPinMap(int pinNum);
 static Servo myservo[numberOfPins];
 static volatile uint8_t servoResp = 0;
 static char input[INPUT_SIZE + 1];
@@ -51,11 +56,8 @@ static uint8_t cc = 0;
 static String strData;
 static char charData;
 
-
 void sSerialRead(uint8_t pin, int baud, char *readString);
 char sSerialReadChar(uint8_t pin, int baud);
-int outputPinMap(int pinNum);
-
 
 int analog_in(uint8_t pin);
 int digital_in(uint8_t pin);
@@ -64,7 +66,7 @@ int temp(uint8_t pin);
 int distance(uint8_t pin);
 void printES();
 void printED();
-void sSerialRead(uint8_t pin, int baud, char* read_Data);
+void sSerialRead(uint8_t pin, int baud, char *read_Data);
 char sSerialReadChar(uint8_t pin, int baud);
 int cmdDecode();
 

@@ -1,71 +1,44 @@
-/***************************************************|
-|                   modified                        |
-|            MIGHTYCORE STANDARD PINOUT             |
-|       https://github.com/MCUdude/MightyCore       |
-|                                                   |
-| An Arduino core for:                              |
-| ebot 8 and pro                                    |
-|                                                   |
-|***************************************************/
-
 #ifndef Pins_Arduino_h
 #define Pins_Arduino_h
 
 #include <avr/pgmspace.h>
 
-#define NUM_DIGITAL_PINS (32)
+/*
+   PCINT15-8: D7-0  : bit 1
+   PCINT31-24: D15-8  : bit 3
+   PCINT23-16: D23-16 : bit 2
+   PCINT7-0: D31-24   : bit 0
+   */
 
+#define NUM_DIGITAL_PINS 27
+#define NUM_ANALOG_INPUTS 8
+//#define analogInputToDigitalPin(p)  ((p < NUM_ANALOG_INPUTS) ? (p) + 12 : -1)
+#define analogInputToDigitalPin(p) ((p < NUM_ANALOG_INPUTS) ? (p) + 19 : -1)
+
+//#define digitalPinHasPWM(p)         ((p) == 28 || (p) == 29 || (p) == 30 || (p) == 31 || (p) == 2 || (p) == 4 || (p) == 6 || (p) == 7)
 #define digitalPinHasPWM(p) ((p) == 2 || (p) == 4 || (p) == 6 || (p) == 7)
 
-// Builtin LED
-#define LED_BUILTIN (8)
-static const uint8_t LED = LED_BUILTIN;
+static const uint8_t SCL = 0;
+static const uint8_t SDA = 1;
 
-// Analog pins
-#define PIN_A0 (19)
-#define PIN_A1 (20)
-#define PIN_A2 (21)
-#define PIN_A3 (22)
-#define PIN_A4 (23)
-#define PIN_A5 (24)
-#define PIN_A6 (25)
-#define PIN_A7 (26)
+static const uint8_t SS = 2;
+static const uint8_t MOSI = 3;
+static const uint8_t MISO = 4;
+static const uint8_t SCK = 5;
+//PD6 6
+//PD7 7
+static const uint8_t LED = 8;
 
-static const uint8_t A0 = PIN_A0;
-static const uint8_t A1 = PIN_A1;
-static const uint8_t A2 = PIN_A2;
-static const uint8_t A3 = PIN_A3;
-static const uint8_t A4 = PIN_A4;
-static const uint8_t A5 = PIN_A5;
-static const uint8_t A6 = PIN_A6;
-static const uint8_t A7 = PIN_A7;
+static const uint8_t A0 = 19;
+static const uint8_t A1 = 20;
+static const uint8_t A2 = 21;
+static const uint8_t A3 = 22;
+static const uint8_t A4 = 23;
+static const uint8_t A5 = 24;
+static const uint8_t A6 = 25;
+static const uint8_t A7 = 26;
 
-#define NUM_ANALOG_INPUTS (8)
-#define analogInputToDigitalPin(p) ((p < NUM_ANALOG_INPUTS) ? (p) + 19 : -1)
-#define analogPinToChannel(p) ((p) < NUM_ANALOG_INPUTS ? (p) : (p) >= 19 ? (p)-19 : -1)
-
-// SPI
-#define PIN_SPI_SS (2)
-#define PIN_SPI_MOSI (3)
-#define PIN_SPI_MISO (4)
-#define PIN_SPI_SCK (5)
-static const uint8_t SS = PIN_SPI_SS;
-static const uint8_t MOSI = PIN_SPI_MOSI;
-static const uint8_t MISO = PIN_SPI_MISO;
-static const uint8_t SCK = PIN_SPI_SCK;
-
-// i2c
-#define PIN_WIRE_SDA (1)
-#define PIN_WIRE_SCL (0)
-static const uint8_t SDA = PIN_WIRE_SDA;
-static const uint8_t SCL = PIN_WIRE_SCL;
-
-// Interrupts
-#define EXTERNAL_NUM_INTERRUPTS (3)
-// no pins in ebot that support interrupt is taken out. Hence following line is just to make compile happy
-#define digitalPinToInterrupt(p) ((p) == 2 ? 2 : ((p) == 10 ? 0 : ((p) == 11 ? 1 : NOT_AN_INTERRUPT)))
-
-//Pin chage interrupts are per port, and the pins in e-bot boad are not in sequence
+//Pin chage interrupts are per port, and the pins in e-robot boad are not in sequence
 //so soft serial and other libraries which use this need pin number from arduino to be able to use this
 //#define digitalPinToPCICR(p)    (((p) >= 0 && (p) < NUM_DIGITAL_PINS) ? (&PCICR) : ((uint8_t *)0))
 #define digitalPinToPCICR(p) (((p) >= 0 && (p) < NUM_DIGITAL_PINS) ? (&PCICR) : ((uint8_t *)0))
@@ -134,12 +107,12 @@ const uint8_t PROGMEM digital_pin_to_port_PGM[] =
 
         PC, // 2 | LED
 
-        PB, // 0 | M1 9
-        PB, // 1 | M2 10
-        PB, // 2 | M3 11
-        PC, // 7 | M4 12
+        PB, // 0 | M1	9
+        PB, // 1 | M2	10
+        PB, // 2 | M3	11
+        PC, // 7 | M4	12
         PD, // 4 | PWM1  13
-        PD, // 5 | PWM2 14
+        PD, // 5 | PWM2	14
         PC, // 3 | STDBY 15
 
         PC, // IR0

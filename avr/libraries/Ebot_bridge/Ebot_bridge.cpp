@@ -16,13 +16,22 @@ Coded for   :   CBits
 // #include "I2Cdev.h"
 // #include "libraries/MPU6050/MPU6050_6Axis_MotionApps20.h"
 
+// #ifdef FREERAM_DEBUG
+// int freeRam()
+// {
+//   extern int __heap_start, *__brkval;
+//   int v;
+//   return (int)&v - (__brkval == 0 ? (int)&__heap_start : (int)__brkval);
+// }
+// #endif
+
+/**********************   Supporting Functions      ****************/
+
 int outputPinMap(int pinNum)
 {
-    //return ebot_pro_p[pinNum];
     return pinNum;
 }
 
-/**********************   Supporting Functions      ****************/
 int analog_in(uint8_t pin)
 {
     pinMode(pin, INPUT);
@@ -148,6 +157,9 @@ int cmdDecode()
         }
 
         /*************************  MPU 6050  *************************/
+
+#ifdef EBOT_8_PRO
+        /*************************  MPU 6050  *************************/
         else if ((command[0] == 'm') && (command[1] == 'p'))
         {
             int pin = 0;
@@ -170,6 +182,7 @@ int cmdDecode()
             SerialPort.println(pin);
             return 1;
         }
+#endif
 
         /*************************  TEMPERATURE SENSOR  *************************/
         else if ((command[0] == 't') && (command[1] == 'e'))
@@ -325,7 +338,7 @@ int cmdDecode()
         /*************************  Sing *************************/
         // sg <pin> <sondIndex>
         // eg: pin 0, song index 3
-        // sg 0 3
+        //	sg 0 3
         else if ((command[0] == 's') && (command[1] == 'g'))
         {
             uint8_t pin = outputPinMap(_NEXT_INT);
@@ -339,6 +352,7 @@ int cmdDecode()
 
         /*************************  DC MOTORS *************************/
 
+#ifdef EBOT_8_PRO
         else if (command[0] == 'm')
         {
             int speed = _NEXT_INT;
@@ -351,6 +365,20 @@ int cmdDecode()
             SerialPort.println(_NEXT_INT);
             return 1;
         }
+#else
+        else if (command[0] == 'm')
+        {
+            int speed = _NEXT_INT;
+            if (speed <= 10)
+                LMotor_1(speed);
+            speed = _NEXT_INT;
+            if (speed <= 10)
+                RMotor_1(speed);
+            printES();
+            SerialPort.println(_NEXT_INT);
+            return 1;
+        }
+#endif
 
         /*************************  SOFT SERIAL & LCD   *************************/
         else if (command[0] == 's')
@@ -391,7 +419,11 @@ int cmdDecode()
         }
         else if ((command[0] == 'V') && (command[1] == 'E') && (command[2] == 'H'))
         {
+#if defined(EBOT_8_PRO)
             SerialPort.println("EBOT_8");
+#elif defined(EBOT_8)
+            SerialPort.println("EBOT_8");
+#endif
 
             return 1;
         }
@@ -400,12 +432,22 @@ int cmdDecode()
         /*************************  STOP command *************************/
         else if ((command[0] == 'X') && (command[1] == 'X'))
         {
+#if defined(EBOT_8_PRO)
             for (int i = 0; i < 8; i++)
             {
                 digitalWrite(i, LOW);
                 RightMotor(0);
                 LeftMotor(0);
             }
+
+#elif defined(EBOT_8)
+            for (int i = 0; i < 8; i++)
+            {
+                digitalWrite(i, LOW);
+                RMotor_1(0);
+                LMotor_1(0);
+            }
+#endif
             printES();
             SerialPort.println(_NEXT_INT);
             return 1;
@@ -417,41 +459,15 @@ int cmdDecode()
 /************************* Setup *************************/
 void bridge_setup()
 {
+#ifdef EBOT_8_PRO
     mpu6050_init();
+#endif
     SerialPort.begin(9600);
     for (int i = 0; i <= 8; i++)
     {
         pinMode(i, OUTPUT);
         digitalWrite(i, LOW);
     }
-    pinMode(0, OUTPUT);
-    pinMode(1, OUTPUT);
-    digitalWrite(0, LOW); //scl
-    digitalWrite(1, LOW); //sda
-    SerialPort.print("AT");
-    delay(100);
-    SerialPort.print("AT+RENEW");
-    delay(1000);
-    // SerialPort.print("AT+TYPE3");  delay(200);
-    // SerialPort.print("AT+MODE2");  delay(200);
-    SerialPort.print("AT+NAMEEBotBlockly");
-    delay(200);
-    SerialPort.print("AT+RESET");
-    delay(1000);
-
-    SerialPort.print("AT");
-    delay(100);
-    SerialPort.print("AT+TYPE2");
-    delay(200);
-    //SerialPort.print("AT+MODE0");  delay(200);
-    SerialPort.print("AT+NAMEEBotBlockly");
-    delay(200);
-    SerialPort.print("AT+PASS123456");
-    delay(200);
-    SerialPort.print("AT+TYPE0");
-    delay(200);
-    SerialPort.print("AT+RESET");
-    delay(1000);
 }
 /************************* Loop *************************/
 void bridge_loop()
