@@ -9,6 +9,7 @@
    PCINT23-16: D23-16 : bit 2
    PCINT7-0: D31-24   : bit 0
    */
+#define EBOT_8
 
 #define NUM_DIGITAL_PINS 27
 #define NUM_ANALOG_INPUTS 8
@@ -21,6 +22,8 @@
 
 //#define digitalPinHasPWM(p)         ((p) == 28 || (p) == 29 || (p) == 30 || (p) == 31 || (p) == 2 || (p) == 4 || (p) == 6 || (p) == 7)
 #define digitalPinHasPWM(p) ((p) == 2 || (p) == 4 || (p) == 6 || (p) == 7)
+
+#define LED_BUILTIN 8
 
 static const uint8_t SCL = 0;
 static const uint8_t SDA = 1;

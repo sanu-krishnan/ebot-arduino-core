@@ -11,11 +11,14 @@
    */
 
 #define EBOT_8_PRO
+#define EBOT_8
 
 #define NUM_DIGITAL_PINS 27
 #define NUM_ANALOG_INPUTS 8
 //#define analogInputToDigitalPin(p)  ((p < NUM_ANALOG_INPUTS) ? (p) + 12 : -1)
 #define analogInputToDigitalPin(p) ((p < NUM_ANALOG_INPUTS) ? (p) + 19 : -1)
+
+#define LED_BUILTIN 8
 
 // Interrupts
 #define EXTERNAL_NUM_INTERRUPTS (3)

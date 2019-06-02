@@ -13,8 +13,8 @@ EbotSound eboSound;
 
 //#ifdef EBOT_4
 /* =========== For MPU6050 ============================*/
-#include "I2Cdev.h"
-#include "MPU6050/MPU6050_6Axis_MotionApps20.h"
+#include <I2Cdev.h>
+#include <MPU6050.h>
 MPU6050 mpu;
 // MPU control/status vars
 bool dmpReady = false;  // set true if DMP init was successful
@@ -35,7 +35,8 @@ float ypr[3];        // [yaw, pitch, roll]   yaw/pitch/roll container and gravit
 int16_t ax, ay, az;
 int16_t gx, gy, gz;
 
-uint8_t ebot_pro_pins[8] = {6, 7, 2, 3, 4, 5, 0, 1};
+// uint8_t ebot_pro_pins[8] = {6, 7, 2, 3, 4, 5, 0, 1};
+uint8_t ebot_pro_pins[8] = {0, 1, 2, 3, 4, 5, 0, 1};
 // packet structure for InvenSense teapot demo
 uint8_t teapotPacket[14] = {'$', 0x02, 0, 0, 0, 0, 0, 0, 0, 0, 0x00, 0x00, '\r', '\n'};
 

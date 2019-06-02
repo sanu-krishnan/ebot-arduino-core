@@ -25,13 +25,13 @@
 #include "Ebot.h"
 int item = 0;
 
-SoftwareSerial mybluetoothTx0(255, ebot_pro_pin(0));
+SoftwareSerial mybluetoothTx0(255, (0));
 SoftwareSerial mybluetoothRxA2(A2, 255);
 SoftwareSerial mybluetoothRxA0(A0, 255);
-SoftwareSerial lcd2(255, ebot_pro_pin(2));
+SoftwareSerial lcd2(255, (2));
 String d2;
 int RemoteA4Count = 0;
-IR rc4(A4);
+//IR rc4(A4);
 int ButtonA4Count = 0;
 int EdgeA4Count = 0;
 int IRA4Count = 0;
@@ -41,16 +41,16 @@ int LightA4Count = 0;
 int xOff = 0;
 int yOff = 0;
 int zOff = 0;
-IR rc6(A6);
+//IR rc6(A6);
 
 int array_item[0] = {};
 
-IR rc1(A1);
+//IR rc1(A1);
 SoftwareSerial mybluetoothRxA3(A3, 255);
-Adafruit_NeoPixel strip2 = Adafruit_NeoPixel(1, ebot_pro_pin(2), NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel strip11 = Adafruit_NeoPixel(4, ebot_pro_pin(11), NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel strip3 = Adafruit_NeoPixel(4, ebot_pro_pin(3), NEO_GRB + NEO_KHZ800);
-SoftwareSerial myserialtx4(255, ebot_pro_pin(4));
+Adafruit_NeoPixel strip2 = Adafruit_NeoPixel(1, (2), NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip11 = Adafruit_NeoPixel(4, (11), NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip3 = Adafruit_NeoPixel(4, (3), NEO_GRB + NEO_KHZ800);
+SoftwareSerial myserialtx4(255, (4));
 Servo myservo_5;
 Servo myservo_6;
 SoftwareSerial myserialRxA5(A5, 255);
@@ -69,43 +69,43 @@ void setup()
   mybluetoothRxA2.begin(9600);
   pinMode(A1, INPUT); //Button
   mybluetoothRxA0.begin(9600);
-  Serial1.begin(9600);              //Serial Rx
-  pinMode(ebot_pro_pin(1), OUTPUT); //Custom Output
-  pinMode(ebot_pro_pin(2), OUTPUT); //Custom Output
-  pinMode(8, OUTPUT);               //LED
-  pinMode(ebot_pro_pin(3), OUTPUT); //LED
-  pinMode(A4, INPUT);               //Remote
-  pinMode(A5, INPUT);               //CustomInput
-  rc6.enable(HW_CH);                //Remote
-  pinMode(A7, INPUT);               //Light Sensor
+  Serial1.begin(9600);  //Serial Rx
+  pinMode((1), OUTPUT); //Custom Output
+  pinMode((2), OUTPUT); //Custom Output
+  pinMode(8, OUTPUT);   //LED
+  pinMode((3), OUTPUT); //LED
+  pinMode(A4, INPUT);   //Remote
+  pinMode(A5, INPUT);   //CustomInput
+  //rc6.enable(HW_CH);    //Remote
+  pinMode(A7, INPUT); //Light Sensor
   //setBluetoothName("Ebot_M", EBOT8PRO);
   //connectBluetoothTo("Ebot_S", EBOT8PRO);
 
-  rc1.enable(HW_CH);    //Remote
+  //rc1.enable(HW_CH);    //Remote
   Serial.begin(115200); //Multimedia, Mouse and Keyboard
   pinMode(A4, INPUT);   //Potentiometer
   pinMode(A2, INPUT);   //IR
   mybluetoothRxA0.begin(9600);
   mybluetoothRxA3.begin(9600);
-  pinMode(16, INPUT_PULLUP);        //Slide Switches
-  pinMode(17, INPUT_PULLUP);        //Slide Switches
-  pinMode(18, INPUT_PULLUP);        //Slide Switches
-  mybluetoothTx0.begin(9600);       //Serial Tx
-  pinMode(ebot_pro_pin(1), OUTPUT); //Relay
+  pinMode(16, INPUT_PULLUP);  //Slide Switches
+  pinMode(17, INPUT_PULLUP);  //Slide Switches
+  pinMode(18, INPUT_PULLUP);  //Slide Switches
+  mybluetoothTx0.begin(9600); //Serial Tx
+  pinMode((1), OUTPUT);       //Relay
   strip2.begin();
   strip2.show();
-  pinMode(ebot_pro_pin(2), OUTPUT);  //RGB LED
-  pinMode(ebot_pro_pin(11), OUTPUT); //RGB LED
+  pinMode((2), OUTPUT);  //RGB LED
+  pinMode((11), OUTPUT); //RGB LED
   strip11.begin();
   strip11.show();
-  pinMode(ebot_pro_pin(3), OUTPUT); //RGB LED
+  pinMode((3), OUTPUT); //RGB LED
   strip3.begin();
   strip3.show();
-  myserialtx4.begin(115200);        //Serial Tx
-  pinMode(ebot_pro_pin(5), OUTPUT); //Servo
-  myservo_5.attach(ebot_pro_pin(5), -90, 90);
-  pinMode(ebot_pro_pin(6), OUTPUT); //Servo Continuous
-  myservo_6.attach(ebot_pro_pin(6), -270, 270);
+  myserialtx4.begin(115200); //Serial Tx
+  pinMode((5), OUTPUT);      //Servo
+  myservo_5.attach((5), -90, 90);
+  pinMode((6), OUTPUT); //Servo Continuous
+  myservo_6.attach((6), -270, 270);
   pinMode(A7, INPUT); //Ultra Sonic
   pinMode(16, INPUT); //Temperature
   pinMode(A6, INPUT); //Sound Sensor
@@ -253,7 +253,7 @@ void loop()
                             if (ButtonA4Count == 0)
                             {
                               ButtonA4Count = 0;
-                              if (ir_rc(&rc4, FW))
+                              if (1)
                               {
                                 delay(100); //Delay for 0 hours 0 mins 0 sec 100 ms
                                 RemoteA4Count++;
@@ -261,11 +261,11 @@ void loop()
                               if (RemoteA4Count == 0)
                               {
                                 RemoteA4Count = 0;
-                                CustomOutput(ebot_pro_pin(1), HIGH);
-                                CustomOutput(ebot_pro_pin(1), LOW);
-                                CustomOutput(ebot_pro_pin(1), item);
-                                CustomOutput(ebot_pro_pin(2), 0);
-                                CustomOutput(ebot_pro_pin(2), item);
+                                CustomOutput((1), HIGH);
+                                CustomOutput((1), LOW);
+                                CustomOutput((1), item);
+                                CustomOutput((2), 0);
+                                CustomOutput((2), item);
                                 d2 = "$000CN";
                                 d2 += "Some text here";
                                 d2 += "#";
@@ -283,8 +283,8 @@ void loop()
                                 delay(200);
                                 digitalWrite(8, HIGH);
                                 digitalWrite(8, LOW);
-                                digitalWrite(ebot_pro_pin(3), HIGH);
-                                digitalWrite(ebot_pro_pin(3), LOW);
+                                digitalWrite((3), HIGH);
+                                digitalWrite((3), LOW);
                                 LeftMotor(0);
                                 LeftMotor(item);
                                 RightMotor(0);
@@ -315,7 +315,7 @@ void loop()
                   {
                     if (readFromMPU(angleX, xOff) <= -180 || readFromMPU(angleX, xOff) >= 180)
                     {
-                      if (ir_rc(&rc6, FW))
+                      if (1)
                       {
                         if (cds(A7) >= 0 && cds(A7) <= 1023)
                         {
@@ -339,7 +339,7 @@ void loop()
   {
     if (isSerCharEqls(&mybluetoothRxA0, 'A'))
     {
-      if (ir_rc(&rc1, FW))
+      if (1)
       {
         if (ir(A2) >= 0 && ir(A2) <= 1023)
         {
@@ -347,7 +347,7 @@ void loop()
           {
             if (isSerStrEqls(&mybluetoothRxA0, "Some text here"))
             {
-              if (ir_rc(&rc1, FW))
+              if (1)
               {
                 if (ir(A2) <= 0 || ir(A2) >= 1023)
                 {
@@ -413,10 +413,10 @@ void loop()
                               delay(100);
                               RightMotor(0);
                               RightMotor(item);
-                              digitalWrite(ebot_pro_pin(1), HIGH);
+                              digitalWrite((1), HIGH);
                               if (array_item[0] == digitalRead(A0))
                               {
-                                digitalWrite(ebot_pro_pin(1), LOW);
+                                digitalWrite((1), LOW);
                               }
                               else if (analogRead(A0))
                               {
