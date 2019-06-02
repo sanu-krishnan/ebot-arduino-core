@@ -1,7 +1,7 @@
 /*
   SD card basic file example
  
- This example shows how to create and destroy an SD card file 	
+ This example shows how to create and destroy an SD card file
  The circuit:
  * SD card attached to SPI bus as follows:
  ** MOSI - pin 11

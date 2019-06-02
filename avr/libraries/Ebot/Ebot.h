@@ -78,10 +78,6 @@
 #define MPUyOffset 0 // this value should be modified by the software
 #define MPUzOffset 0 // this value should be modified by the software
 
-//#define relativeAngleX(input)	((input-MPUxOffset)>90)?90:(((input-MPUxOffset)<-90)?-90:(input-MPUxOffset))
-//#define relativeAngleY(input)	((input-MPUyOffset)>90)?90:(((input-MPUyOffset)<-90)?-90:(input-MPUyOffset))
-//#define relativeAngleZ(input)	((input-MPUzOffset)>180)?360-(input-MPUzOffset):(((input-MPUzOffset)<-180)?(input-MPUzOffset)+360:(input-MPUzOffset))
-
 //#define relativeAngleX2(input,off) ((input-off)>90)?90:(((input-off)<-90)?-90:(input-off))
 //#define relativeAngleY2(input,off) ((input-off)>90)?90:(((input-off)<-90)?-90:(input-off))
 //#define relativeAngleZ2(input,off) ((input-off)>180)?360-(input-off):(((input-off)<-180)?(input-off)+360:(input-off))

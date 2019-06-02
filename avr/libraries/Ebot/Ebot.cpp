@@ -7,7 +7,7 @@
 MCP7940_Class rtc; //rtc
 #endif
 
-//#ifdef	EBOT_8
+//#ifdef EBOT_8
 EbotSound eboSound;
 //#endif
 
@@ -319,7 +319,7 @@ float readFromMPU(int choice, int offset)
                 else if (val < 0)
                     MPUdata = -180 - val;
                 MPUdata = relativeAngle(MPUdata, offset);
-                break; //MPUdata= euler[2]* 180/M_PI;	break; //euler2
+                break; //MPUdata = euler[2]*180/M_PI; break; //euler2
 
             case angleX:
                 val = (ypr[2] * 180 / M_PI);
