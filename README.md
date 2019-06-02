@@ -1,7 +1,7 @@
 # EBot Arduino Core
 [![Build Status](https://travis-ci.org/sanu-krishnan/ebot-arduino-core.svg?branch=master)](https://travis-ci.org/sanu-krishnan/ebot-arduino-core)
 
-# How to include EBot in Arduino IDE ? 
+### How to include EBot in Arduino IDE ? 
 Boards Manager Installation
 
 This installation method requires Arduino IDE version 1.6.4 or greater.
