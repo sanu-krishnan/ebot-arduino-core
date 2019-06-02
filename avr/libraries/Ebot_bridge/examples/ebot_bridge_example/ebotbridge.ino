@@ -1,9 +1,9 @@
 /*
-Project       :   Ebot Simplifies App Bridge Firmware
-VersionNumber :   2.00
-Organization  :   Creative Bits
-website       :   www.cbits.cc
-Target        :   Ebot8pro	and ebot8 (no ebot4)
+Project       :  Ebot Simplifies App Bridge Firmware
+VersionNumber :  2.00
+Organization  :  Creative Bits
+website       :  www.cbits.cc
+Target        :  Ebot8pro	and ebot8 (no ebot4)
 */
 
 #include "Ebot_bridge.h"

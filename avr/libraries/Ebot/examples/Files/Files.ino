@@ -15,7 +15,6 @@
  by Tom Igoe
  
  This example code is in the public domain.
- 	 
  */
 #include <Snowball.h>
 
@@ -23,30 +22,33 @@ File myFile;
 
 void setup()
 {
- // Open serial communications and wait for port to open:
+  // Open serial communications and wait for port to open:
   Serial.begin(9600);
-   while (!Serial) {
+  while (!Serial)
+  {
     ; // wait for serial port to connect. Needed for Leonardo only
   }
 
-
   Serial.print("Initializing SD card...");
   // On the Ethernet Shield, CS is pin 4. It's set as an output by default.
-  // Note that even if it's not used as the CS pin, the hardware SS pin 
-  // (10 on most Arduino boards, 53 on the Mega) must be left as an output 
-  // or the SD library functions will not work. 
+  // Note that even if it's not used as the CS pin, the hardware SS pin
+  // (10 on most Arduino boards, 53 on the Mega) must be left as an output
+  // or the SD library functions will not work.
   pinMode(5, OUTPUT);
 
-  if (!SD.begin(5)) {
+  if (!SD.begin(5))
+  {
     Serial.println("initialization failed!");
     return;
   }
   Serial.println("initialization done.");
 
-  if (SD.exists("example.txt")) {
+  if (SD.exists("example.txt"))
+  {
     Serial.println("example.txt exists.");
   }
-  else {
+  else
+  {
     Serial.println("example.txt doesn't exist.");
   }
 
@@ -55,23 +57,27 @@ void setup()
   myFile = SD.open("example.txt", FILE_WRITE);
   myFile.close();
 
-  // Check to see if the file exists: 
-  if (SD.exists("example.txt")) {
+  // Check to see if the file exists:
+  if (SD.exists("example.txt"))
+  {
     Serial.println("example.txt exists.");
   }
-  else {
-    Serial.println("example.txt doesn't exist.");  
+  else
+  {
+    Serial.println("example.txt doesn't exist.");
   }
 
   // delete the file:
   Serial.println("Removing example.txt...");
   SD.remove("example.txt");
 
-  if (SD.exists("example.txt")){ 
+  if (SD.exists("example.txt"))
+  {
     Serial.println("example.txt exists.");
   }
-  else {
-    Serial.println("example.txt doesn't exist.");  
+  else
+  {
+    Serial.println("example.txt doesn't exist.");
   }
 }
 
@@ -79,6 +85,3 @@ void loop()
 {
   // nothing happens after setup finishes.
 }
-
-
-

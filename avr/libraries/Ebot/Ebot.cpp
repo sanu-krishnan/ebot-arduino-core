@@ -307,14 +307,10 @@ float readFromMPU(int choice, int offset)
                 MPUdata = aaWorld.z;
                 break;
 
-                //case angleZ: MPUdata= relativeAngleZ(ypr[0] * 180/M_PI); break;//MPUdata= euler[0]* 180/M_PI;	break; //euler0
-                //case angleX: MPUdata= relativeAngleX(ypr[2]  * 180/M_PI);	break; //euler1 data is not reliable
-                //case angleY: MPUdata= relativeAngleY(ypr[1] * 180/M_PI); break;//MPUdata= euler[2]* 180/M_PI;	break; //euler2
-
             case angleZ:
                 MPUdata = relativeAngle(ypr[0] * 180 / M_PI, offset);
-                break;   //MPUdata= euler[0]* 180/M_PI;	break; //euler0
-            case angleY: // MPUdata = ypr[1]* 180 / M_PI;//relativeAngle(euler[1]* 180 / M_PI, offset);
+                break;   //MPUdata= euler[0]* 180/M_PI;    break; //euler0
+            case angleY: // MPUdata = ypr[1]* 180 / M_PI;  //relativeAngle(euler[1]* 180 / M_PI, offset);
                 val = (ypr[1] * 180 / M_PI);
                 if (az < 0)
                     MPUdata = val;
@@ -336,10 +332,6 @@ float readFromMPU(int choice, int offset)
 
                 MPUdata = relativeAngle(MPUdata, offset);
                 break;
-
-                //case euZ: MPUdata= MPUdata= euler[0]* 180/M_PI; break;//MPUdata= euler[0]* 180/M_PI;	break; //euler0
-                //case euX: MPUdata= MPUdata= euler[1]* 180/M_PI; break; //euler1 data is not reliable
-                //case euY: MPUdata= MPUdata= euler[2]* 180/M_PI; break; //euler2
             default:
                 MPUdata = 0;
                 break;
@@ -353,23 +345,7 @@ float readFromMPU(int choice, int offset)
 
 #ifdef EBOT_4
 #define NUMBER_OF_PINS 4
-/*Adafruit_NeoPixel startup_strip = Adafruit_NeoPixel(4, 11, NEO_GRB + NEO_KHZ800);
-uint8_t index = 0;
-uint8_t rgb_startup_color[] =
-{	0,	0,	255,		0,	255,255,		255,	0,	0,		255, 255, 255,
-0,	0,	255,		0,	0,	255,		0,	0,	255,		255, 255, 255,
-0,	255,255,		0,	255,255,		255,	0,	0,		255, 255, 255,
-0,	0,	255,		0,	0,	255,		0,		0,	255,	0, 		0, 255,
-0,	0,	0,			0,	0,	0,			0,		0,	0,		0, 		0, 0,
-};
 
-void startup_colorWipe(uint32_t c, uint8_t wait) {
-for(uint16_t i=0; i<startup_strip.numPixels(); i++) {
-startup_strip.setPixelColor(i, c);
-startup_strip.show();
-delay(wait);
-}
-}*/
 #endif
 
 #ifdef EBOT_8
@@ -428,32 +404,14 @@ void ebot_setup()
             bridge_loop();
         }
     }
-    //	Serial1.begin(9600);
-    //	Serial1.print("AT");  delay(100);
-    //	Serial1.print("AT+RENEW");  delay(1000);
+    // Serial1.begin(9600);
+    // Serial1.print("AT");  delay(100);
+    // Serial1.print("AT+RENEW");  delay(1000);
     // Serial1.print("AT+TYPE3");  delay(200);
     // Serial1.print("AT+MODE2");  delay(200);
-    //  Serial1.print("AT+NAMEEBot8Pro");  delay(200);
-    //  Serial1.print("AT+RESET");  delay(1000);
+    // Serial1.print("AT+NAMEEBot8Pro");  delay(200);
+    // Serial1.print("AT+RESET");  delay(1000);
 #endif
-    /*#ifdef EBOT_4
-    edg[6].cu =	edg[6].pre = LOW ;
-    edg[6].acted = false;
-    edg[7].cu =	edg[7].pre = LOW ;
-    edg[7].acted = false;
-
-    #endif
-     */
-    //#ifdef EBOT_4
-    //	Serial.begin(9600);
-    //	startup_strip.begin();
-    //	startup_strip.show();
-    //for (uint8_t ii = 0; ii < 5; ii++) {
-    //startup_colorWipe(startup_strip.Color(rgb_startup_color[index++], rgb_startup_color[index++], rgb_startup_color[index++]),50); // Red
-    //	delay(100);
-    //	}
-    //#endif
-    ////////////////////////////////////////
 }
 
 int senseColor(int pin)
@@ -478,9 +436,9 @@ int ebot_pro_pin(int p)
 
 void rtc_init()
 {
-    //  rtc.begin();
-    //  rtc.configure(0x98);
-    //while (!rtc.isset());//wait till clock starts ticking
+    // rtc.begin();
+    // rtc.configure(0x98);
+    // while (!rtc.isset());//wait till clock starts ticking
     while (!rtc.begin())
     {                                                                        // Initialize RTC communications    //
         Serial.println(F("Unable to find MCP7940M. Checking again in 3s.")); // Show error text                  //
@@ -577,24 +535,6 @@ bool ir_rc(IR *ir, unsigned char key)
     return false;
 }
 #endif
-
-//#ifdef EBOT_4
-
-//bool ir_rc(IR *ir, unsigned char key)
-//{
-// 	if(ir->decode(&results))
-//	{
-//		remote_cu_key = results.value; // no channels for ebot 4
-//		ir->resume();
-//	}
-//	if(remote_cu_key == key)
-//	{
-//		remote_cu_key = KEY_IDLE;
-//		return true;
-//	}
-//	return false;
-//}
-//#endif
 
 /////////////////////////////////sofserial//////////////////////////////////
 
@@ -740,88 +680,6 @@ unsigned char button(unsigned char PinNumber, unsigned char State)
     }
 
 #endif
-    /*	switch(PinNumber)
-            {
-                    case A0:
-                    pin = 0;
-                    break;
-                    case A1:
-                    pin = 1;
-                    break;
-                    case A2:
-                    pin = 2;
-                    break;
-                    case A3:
-                    pin = 3;
-                    break;
-                    case A4:
-                    pin = 4;
-                    break;
-                    case A5:
-                    pin = 5;
-                    break;
-                    case A6:
-                    pin = 6;
-                    break;
-                    case A7:
-                    pin = 7;
-                    break;
-                    #ifdef EBOT_4
-                    //if((PinNumber==SW_1)||(PinNumber==SW_2)){
-                    //	return (digitalRead(PinNumber));
-                    //}
-                    case SW_1:
-                    pin = 6;
-                    break;
-                    case SW_2:
-                    pin = 7;
-                    break;
-                    #endif
-
-                    default:
-                    return false;
-            }
-
-            btn[pin].pre = btn[pin].cu;
-            if(digitalRead(PinNumber))
-            {
-                    //delay(50);
-                    if(digitalRead(PinNumber))
-                    {
-                            //btn[pin].cu = ((PinNumber==SW_1)||(PinNumber==SW_2))?LOW: HIGH; // because it's active high. //HIGH;
-                            btn[pin].cu = HIGH; // because it's active high. //HIGH;
-                    }
-            }
-            else
-            //btn[pin].cu = ((PinNumber==SW_1)||(PinNumber==SW_2))?HIGH: LOW; //LOW;
-      btn[pin].cu =LOW;
-
-            if(State == PRESSED)
-            {
-
-                    if((btn[pin].cu == HIGH) && (btn[pin].pre == LOW))
-                    {
-                            btn[pin].acted = true;
-                            return true;
-                    }
-                    return false;
-            }
-            if(State == RELEASED)
-            {
-                    if((btn[pin].acted == true) && (btn[pin].cu == LOW))
-                    {
-                            btn[pin].acted = false;
-                            return true;
-                    }
-                    else if((btn[pin].cu == LOW) && (btn[pin].pre == HIGH))
-                    {
-                            return true;
-                    }
-
-                    return false;
-            }
-            return false;
-     */
 }
 ///////////////////////////////////////////////////////////////
 
@@ -940,7 +798,7 @@ void RMotor_2(int speed)
 }
 #endif
 
-//////////////////////////			RGB LED STRIP					////////////////////////
+////////////////////////// RGB LED STRIP ////////////////////////
 
 uint32_t Wheel(Adafruit_NeoPixel *strip, byte WheelPos)
 {
@@ -999,8 +857,6 @@ void colorGradient(Adafruit_NeoPixel *strip, uint8_t r1, uint8_t g1, uint8_t b1,
 ///////////////////////////////////////////////////////////////////////////////////////
 
 //////////////////////////////Sound//////////////////////////////////////////
-//#ifdef	EBOT_8
-
 void ebotSing(int index)
 {
     eboSound.sing(index);

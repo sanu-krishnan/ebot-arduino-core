@@ -338,7 +338,7 @@ int cmdDecode()
         /*************************  Sing *************************/
         // sg <pin> <sondIndex>
         // eg: pin 0, song index 3
-        //	sg 0 3
+        // sg 0 3
         else if ((command[0] == 's') && (command[1] == 'g'))
         {
             uint8_t pin = outputPinMap(_NEXT_INT);
