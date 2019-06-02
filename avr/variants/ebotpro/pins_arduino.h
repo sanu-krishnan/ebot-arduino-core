@@ -106,19 +106,19 @@ const uint8_t PROGMEM digital_pin_to_port_PGM[] =
         PB, // 5 | d3 MOSI
         PB, // 6 | d4 MISO
         PB, // 7 | d5 SCK
-            // PD , // 6 | d6
-            // PD , // 7 | d7
+        // PD , // 6 | d6
+        // PD , // 7 | d7
         PC, // 0 | d0
         PC, // 1 | d1
 
         PC, // 2 | LED
 
-        PB, // 0 | M1	9
-        PB, // 1 | M2	10
-        PB, // 2 | M3	11
-        PC, // 7 | M4	12
-        PD, // 4 | PWM1  13
-        PD, // 5 | PWM2	14
+        PB, // 0 | M1 9
+        PB, // 1 | M2 10
+        PB, // 2 | M3 11
+        PC, // 7 | M4 12
+        PD, // 4 | PWM1 13
+        PD, // 5 | PWM2 14
         PC, // 3 | STDBY 15
 
         PC, // IR0
