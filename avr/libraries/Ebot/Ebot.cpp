@@ -511,7 +511,7 @@ uint8_t getDayOfWeek()
 {
     return rtc.now().dayOfTheWeek();
 }
-
+/*
 bool ir_rc(IR *ir, unsigned char key)
 {
     if (ir->decode(&results))
@@ -534,7 +534,8 @@ bool ir_rc(IR *ir, unsigned char key)
     }
 
     return false;
-}
+    
+}*/
 #endif
 
 /////////////////////////////////sofserial//////////////////////////////////

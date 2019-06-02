@@ -119,8 +119,8 @@ uint8_t getHour();
 uint8_t getMinute();
 uint8_t getSecond();
 uint8_t getDayOfWeek();
-bool ir_rc_off();
-bool ir_rc(IR *ir, unsigned char key);
+// bool ir_rc_off();
+// bool ir_rc(IR *ir, unsigned char key);
 #endif
 
 //#ifdef EBOT_4
