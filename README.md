@@ -15,7 +15,7 @@ This installation method requires Arduino IDE version 1.6.4 or greater.
 4. Separate the URLs using a comma ( , ) if you have more than one URL
 5. Open the Tools > Board > Boards Manager... menu item.
 6. Wait for the platform indexes to finish downloading.
-7. Scroll down until you see the MightyCore entry and click on it.
+7. Scroll down until you see the EBots entry and click on it.
 8. Click Install.
 9. After installation is complete close the Boards Manager window.
 
