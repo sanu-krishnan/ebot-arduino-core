@@ -3,12 +3,8 @@
 #define temp(x) (analogRead(x) / 2.048)
 #define soundLevel(x) ((analogRead(x) - 600) / 4.24)
 #include <SoftwareSerial.h>
-#include <SoftwareSerial.h>
-#include <SoftwareSerial.h>
-#include <SoftwareSerial.h>
-#include <SoftwareSerial.h>
-#include "Servo.h"
-#include "Adafruit_NeoPixel.h"
+#include <Servo.h>
+#include <Adafruit_NeoPixel.h>
 
 #define ir(x) analogRead(x)
 #define Potentiometer(x) (analogRead(x))
@@ -19,9 +15,6 @@
 #define CustomOutput(p, x) digitalWrite(p, x)
 #define CustomOutput(p, x) analogWrite(p, x)
 #include <SoftwareSerial.h>
-#include "Adafruit_NeoPixel.h"
-#include "Adafruit_NeoPixel.h"
-#include "Servo.h"
 
 #include "Ebot.h"
 int item = 0;

@@ -5,10 +5,7 @@
 #include "Adafruit_NeoPixel.h"
 #include "Adafruit_NeoPixel.h"
 #include <SoftwareSerial.h>
-#include "Servo.h"
-#include <SoftwareSerial.h>
-#include <SoftwareSerial.h>
-#include <SoftwareSerial.h>
+#include <Servo.h>
 
 #define CustomInput(x) analogRead(x)
 #define cds(x) analogRead(x)
