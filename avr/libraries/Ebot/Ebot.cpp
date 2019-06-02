@@ -14,7 +14,7 @@ EbotSound eboSound;
 //#ifdef EBOT_4
 /* =========== For MPU6050 ============================*/
 #include "I2Cdev.h"
-#include "libraries/MPU6050/MPU6050_6Axis_MotionApps20.h"
+#include "MPU6050/MPU6050_6Axis_MotionApps20.h"
 MPU6050 mpu;
 // MPU control/status vars
 bool dmpReady = false;  // set true if DMP init was successful
