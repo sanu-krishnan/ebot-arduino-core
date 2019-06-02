@@ -17,6 +17,10 @@
 //#define analogInputToDigitalPin(p)  ((p < NUM_ANALOG_INPUTS) ? (p) + 12 : -1)
 #define analogInputToDigitalPin(p) ((p < NUM_ANALOG_INPUTS) ? (p) + 19 : -1)
 
+// Interrupts
+#define EXTERNAL_NUM_INTERRUPTS (3)
+#define digitalPinToInterrupt(p) ((p) == 255 ? 0 : ((p) == 255 ? 1 : ((p) == 255 ? 2 : NOT_AN_INTERRUPT))) // no int pinsare taken out
+
 //#define digitalPinHasPWM(p)         ((p) == 28 || (p) == 29 || (p) == 30 || (p) == 31 || (p) == 2 || (p) == 4 || (p) == 6 || (p) == 7)
 #define digitalPinHasPWM(p) ((p) == 2 || (p) == 4 || (p) == 6 || (p) == 7)
 
