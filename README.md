@@ -20,3 +20,5 @@ This installation method requires Arduino IDE version 1.6.4 or greater.
 9. After installation is complete close the Boards Manager window.
 
 
+### Credits
+This core is a modified version of Mightycore:https://github.com/MCUdude/MightyCore. Thanks to MCU Dude
