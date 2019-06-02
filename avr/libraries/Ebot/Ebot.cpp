@@ -14,7 +14,7 @@ EbotSound eboSound;
 //#ifdef EBOT_4
 /* =========== For MPU6050 ============================*/
 #include <I2Cdev.h>
-#include <MPU6050.h>
+#include "MPU6050_6Axis_MotionApps20.h"
 MPU6050 mpu;
 // MPU control/status vars
 bool dmpReady = false;  // set true if DMP init was successful
@@ -351,9 +351,9 @@ float readFromMPU(int choice, int offset)
 
 #ifdef EBOT_8
 #define NUMBER_OF_PINS 8
-static unsigned char remote_cu_key = OFF;
+//static unsigned char remote_cu_key = OFF;
 //static decode_results res;
-decode_results results;
+//decode_results results;
 #endif
 
 #ifdef EBOT_ARDUINO
@@ -534,8 +534,8 @@ bool ir_rc(IR *ir, unsigned char key)
     }
 
     return false;
-    
-}*/
+}
+*/
 #endif
 
 /////////////////////////////////sofserial//////////////////////////////////
