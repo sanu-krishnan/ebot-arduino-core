@@ -187,7 +187,7 @@ void loop()
                   xOff = readFromMPU(angleX, 0);
                   yOff = readFromMPU(angleY, 0);
                   zOff = readFromMPU(angleZ, 0);
-                  if (ir_rc(&rc5, FW))
+                  if (1)
                   {
                     if (ir(A6) >= 0 && ir(A6) <= 1023)
                     {
