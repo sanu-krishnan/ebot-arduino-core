@@ -12,6 +12,7 @@
 #define colour(x) (senseColor(x))
 #include <SoftwareSerial.h>
 #define CustomOutput(p, x) analogWrite(p, x)
+#define CustomInput(x) analogRead(x)
 #include <SoftwareSerial.h>
 
 #include "Ebot.h"
