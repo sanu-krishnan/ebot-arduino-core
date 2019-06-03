@@ -11,8 +11,6 @@
 #define cds(x) analogRead(x)
 #define colour(x) (senseColor(x))
 #include <SoftwareSerial.h>
-#define CustomInput(x) analogRead(x)
-#define CustomOutput(p, x) digitalWrite(p, x)
 #define CustomOutput(p, x) analogWrite(p, x)
 #include <SoftwareSerial.h>
 
@@ -36,14 +34,14 @@ int a = 0;
 int b = 0;
 
 int RemoteA3Count = 0;
-IR rc3(A3);
+// IR rc3(A3);
 int ButtonA3Count = 0;
 int EdgeA3Count = 0;
 int IRA3Count = 0;
 
 int PotentiometerA3Count = 0;
 int LightA3Count = 0;
-IR rc5(A5);
+// IR rc5(A5);
 SoftwareSerial lcd2(255, 2);
 String d2;
 Adafruit_NeoPixel strip5 = Adafruit_NeoPixel(1, 5, NEO_GRB + NEO_KHZ800);
@@ -89,7 +87,7 @@ void setup()
   mybluetoothRxA0.begin(9600);
   pinMode(A1, INPUT); //Button
   pinMode(A4, INPUT); //CustomInput
-  rc5.enable(HW_CH);  //Remote
+  // rc5.enable(HW_CH);  //Remote
   pinMode(1, OUTPUT); //Custom Output
   pinMode(2, OUTPUT); //Custom Output
   pinMode(8, OUTPUT); //LED
@@ -305,7 +303,7 @@ void loop()
                       if (ButtonA3Count == 0)
                       {
                         ButtonA3Count = 0;
-                        if (ir_rc(&rc3, FW))
+                        if (1)
                         {
                           delay(100); //Delay for 0 hours 0 mins 0 sec 100 ms
                           RemoteA3Count++;
@@ -374,7 +372,7 @@ void loop()
                 {
                   if (edge(A4, FALLING))
                   {
-                    if (ir_rc(&rc5, FW))
+                    if (1)
                     {
                       if (ir(A6) >= 0 && ir(A6) <= 1023)
                       {

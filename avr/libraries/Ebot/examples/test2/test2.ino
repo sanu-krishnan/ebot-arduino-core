@@ -34,7 +34,7 @@ SoftwareSerial mybluetoothRxA5(A5, 255);
 int xOff = 0;
 int yOff = 0;
 int zOff = 0;
-IR rc5(A5);
+//IR rc5(A5);
 int LightA3Count = 0;
 SoftwareSerial lcd1(255, ebot_pro_pin(1));
 String d1;
@@ -74,7 +74,7 @@ void setup()
   mybluetoothRxA5.begin(9600);
   mpu6050_init();
   pinMode(A4, INPUT); //CustomInput
-  rc5.enable(HW_CH);  //Remote
+  // rc5.enable(HW_CH);  //Remote
   pinMode(A7, INPUT); //Light Sensor
   pinMode(A6, INPUT); //IR
   pinMode(A3, INPUT); //Light Sensor
