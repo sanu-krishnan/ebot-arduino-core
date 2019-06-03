@@ -17,13 +17,13 @@ int item = 0;
 int var0 = 0;
 
 int array_item[0] = {};
-IR rc5(A5);
+// IR rc5(A5);
 SoftwareSerial myserialRxA4(A4, 255);
 SoftwareSerial mybluetoothRxA6(A6, 255);
 SoftwareSerial mybluetoothRxA7(A7, 255);
 Servo myservo_0;
 SoftwareSerial myserialtx1(255, 1);
-IR rc4(A4);
+// IR rc4(A4);
 int LightA3Count = 0;
 SoftwareSerial mybluetoothRxA0(A0, 255);
 SoftwareSerial mybluetoothTx0(255, 0);
@@ -40,7 +40,7 @@ void setup()
   ebot_setup();
 
   //Pin Modes
-  rc4.enable(HW_CH);    //Remote
+  // rc4.enable(HW_CH);    //Remote
   pinMode(A7, INPUT);   //CustomInput
   pinMode(A6, INPUT);   //Light Sensor
   pinMode(A5, INPUT);   //IR
@@ -64,7 +64,7 @@ void setup()
   strip6.show();
   myserialtx7.begin(115200); //Serial Tx
   myservo_7.attach(7, -90, 90);
-  rc5.enable(HW_CH); //Remote
+  // rc5.enable(HW_CH); //Remote
   myserialRxA4.begin(9600);
   pinMode(A3, INPUT); //Ultra Sonic
   pinMode(A2, INPUT); //Temperature
@@ -99,7 +99,7 @@ void loop()
           if (LightA3Count == 0)
           {
             LightA3Count = 0;
-            if (ir_rc(&rc4, FW))
+            if (1)
             {
               if (ir(A5) >= 0 && ir(A5) <= 1023)
               {
@@ -183,7 +183,7 @@ void loop()
           {
             if (isSerCharEqls(&myserialRxA4, 'A'))
             {
-              if (ir_rc(&rc5, FW))
+              if (1)
               {
               }
             }
